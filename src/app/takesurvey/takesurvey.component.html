@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+
+}
+
+th, td {     
+  text-align: left;
+  padding: 8px;
+}
+
+/* tr:nth-child(even){background-color: #f2f2f2} */
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</head>
+<body style="background-color: #eee;height: 100vh;">
+
+
+
+<div style="overflow-x:auto;" class="container-fluid mt-3  ">
+  <div class="w3-panel w3-card-4" style="background-color:white">
+
+         <!-- TestName dropdown -->
+            <input list="brow" id="error" placeholder="Select Testname" [(ngModel)]="testnametogetsurvey"  style="width: 20%;margin-top: 3px;">
+            <datalist id="brow">
+              <option *ngFor="let i of testnamelist">{{i.testName}}-{{i.Date}}</option>
+            </datalist>
+            <button style="color: white;background-color: #0972b8;margin-top: 10px;text-align: center;font-size: 17px;font-family: verdana" (click)="getsurvey()">Get Survey</button>
+
+
+
+
+
+ 
+  <hr>
+
+  <div style="overflow-x:auto; margin-bottom: 30px;" >
+    <div class="text-center">
+      <h6 style="color: #0972b8;font-size: 20px;font-family: verdana" *ngIf="hidesavebutton"><u>{{testname}}</u></h6>
+    </div>
+    
+    <table style="border: none;width: 100%;" *ngIf="hidesavebutton">
+          
+    <!--<tr style="background-color: #c6d9ec;color: black;">
+
+       <th>Test Name</th>
+      <th>Question</th> -->
+      <!-- <th>Question Type</th> -->
+      <!-- <th>option 1</th>
+      <th>option 2</th>
+      <th>option 3</th>
+      <th>option 4</th> -->
+      <!-- <th>Fill in the Blank</th>     </tr>-->
+
+
+      <tr *ngFor="let i of questionsfromadmin; let j=index">
+        <td style="table-layout: fixed;width: 50px;">{{j+1}}</td>
+        <td style="table-layout: fixed;width: 350px;">{{i.questionName1}}</td>
+       <!-- <td>{{i.questiontype}}</td> -->
+       <td style="table-layout: fixed;width: 200px;" [hidden]="i.questiontype==='Fill-in-the-blank'">  <input type="radio" name="{{j+1}}" class="seal-type mr-1"  value="1" (click)="multiple(i,i.option1forQuestion1)">{{i.option1forQuestion1}}</td>
+       <td style="table-layout: fixed;width: 200px;" [hidden]="i.questiontype==='Fill-in-the-blank'"> <input type="radio" name="{{j+1}}" class="seal-type mr-1" value="2" (click)="multiple(i,i.option2forQuestion1)">{{i.option2forQuestion1}}</td>
+       <td style="table-layout: fixed;width: 200px;" [hidden]="i.questiontype==='Fill-in-the-blank'"><input type="radio" name="{{j+1}}" class="seal-type mr-1" value="3" (click)="multiple(i,i.option3forQuestion1)">{{i.option3forQuestion1}}</td>
+       <td style="table-layout: fixed;width: 200px;" [hidden]="i.questiontype==='Fill-in-the-blank'"><input type="radio" name="{{j+1}}" class="seal-type mr-1"  value="4" (click)="multiple(i,i.option4forQuestion1)">{{i.option4forQuestion1}}</td>
+        <td style="table-layout: fixed;width: 200px;" [hidden]="i.questiontype==='Multiple Type'" ><input  style="border-right-style:none;border-top-style:none;border-left-style:none;" (blur)="fillintheblank(i,answeer.value)" #answeer type="text" placeholder="Enter response"></td>
+      </tr>
+  </table>
+  <p style="text-align: center;color: #0972b8;font-size: 17px;font-family: verdana;">{{message}}</p>
+  
+
+
+
+
+      <!-- The Modal code for final submit Starts from here -->
+      <div class="modal modal" id="submitsurvey">
+        <div class="modal-dialog modal-md" >
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+              <h6 class="text-center mt-3" id="success" style="font-size: 20px;font-family: verdana;color: #0972b8;">{{successmessage}}</h6>
+     
+            </div>
+            
+ 
+
+
+
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn" style="color: white;background-color: #0972b8; font-size: 17px;font-family: verdana" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+            <!-- The Modal code Ends from here -->
+  
+<div class="text-center" *ngIf="hidesavebutton" >
+  <button (click)="sendresponse()" type="submit" data-toggle="modal" data-target="#submitsurvey" style="color: white;margin-top: 30px;background-color: #0972b8; font-size: 17px;font-family: verdana" class="mb-3" >Submit Survey</button>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>      
+ input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #ced4da;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #ced4da;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #0972b8;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #0972b8;
+    }
+    </style>
+</head>
+<body style="background-color: #eee;height: 100vh;">
+  <div class="container-fluid" style="margin-top: 15px;">
+    <div class="w3-panel w3-card-4" style="background-color: white !important;" >
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf = "firstdivclosing">
+          <h5 style="text-align: center;white-space: nowrap;color: black; margin-top: 10px;font-size: 22px;font-family: verdana;"><b><u>New Survey</u></b></h5>
+            <table class="table table-sm table-bordered" style="font-family: verdana;font-size: 15px;margin-bottom: 30px;">
+                <thead style="background-color: #0972b8;color: white;text-align: center;">
+                    <th>SNO</th>
+                    <th>Survey Name</th>
+                    <th>Assigned On</th>
+                    <th>Last Date</th>
+                    <th>Status</th>                            
+                    <th>Fill Form</th>
+                </thead>
+                <tr *ngFor="let ii of testnamelist | paginate:{id:'pagination1',itemsPerPage:5,currentPage:p}; let sn = index;" style="text-align: center;">
+                    <td style="table-layout: fixed;width: 50px;vertical-align: baseline;">{{5 *(p-1)+sn+1}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline; text-align: left !important;">{{ii.testName | titlecase}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline;">{{ii.AsignedDate}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline;">{{ii.Enddate | date:'yyyy/MM/dd'}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline;">Not Completed</td>
+                    
+                    <td style="text-align: center;table-layout: fixed;width: 200px;vertical-align: baseline;"><i style="color: #0972b8;font-size: 24px;"  data-toggle="modal" data-target="#selectdepartment" type="button"  (click)="gettingtestname(ii.testName)" class="fa fa-pencil"></i></td>
+                </tr>
+            </table>
+            <pagination-controls style="text-align: left;" id="pagination1" (pageChange) = "p = $event"></pagination-controls>
+        </div>
+
+
+        <div style="overflow-x:auto; margin-bottom: 30px;" *ngIf = "seconddivclosing">
+            
+            <div class="text-center" style="margin-bottom: 30px; margin-top: 30px;">
+              
+              <button style="float: left;margin-top: -30px;" class="btn"><i style="color: #0972b8;font-size: 40px;" type="button" (click)="gobackToHome()" class="fa fa-home"></i></button>
+              <h6 style="color: black;font-size: 20px;font-family: verdana;margin-top: 30px;" *ngIf="hidesavebutton"><u><b>{{testname}}</b></u></h6>
+            </div>
+            
+            <table class="table table-bordered table-sm mt-2" style="width: 100%;" *ngIf="hidesavebutton">
+              <thead style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+                <th style="text-align: center;">SNo</th>                        
+                <th style="text-align: center;">Question</th>                        
+                <th style="text-align: center;">Option 1</th>
+                <th style="text-align: center;">Option 2</th>
+                <th style="text-align: center;">Option 3</th>
+                <th style="text-align: center;">Option 4</th>
+                <th style="text-align: center;" >Fill in the blank</th>
+              </thead>                  
+            
+              <tr *ngFor="let i of questionsfromadmin | paginate:{id:'pagination4',itemsPerPage:10,currentPage:tm}; let j=index">
+                <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{10 *(tm-1)+j+1}}</td>
+                <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 350px;vertical-align: baseline;">{{i.questionName1}}</td>
+               <!-- <td>{{i.questiontype}}</td> -->
+               <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline;" >  <input [hidden]="i.questiontype==='Fill-in-the-blank'" type="radio" name="{{j+1}}" class="seal-type mr-2"  value="1" (click)="multiple(i,i.option1forQuestion1)" [checked]='i.response===i.option1forQuestion1'>{{i.option1forQuestion1 | titlecase}}</td>
+               <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline;" > <input [hidden]="i.questiontype==='Fill-in-the-blank'" type="radio" name="{{j+1}}" class="seal-type mr-2" value="2" (click)="multiple(i,i.option2forQuestion1)" [checked]='i.response===i.option2forQuestion1'>{{i.option2forQuestion1 | titlecase}}</td>
+               <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline;" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" type="radio" name="{{j+1}}" class="seal-type mr-2" value="3" (click)="multiple(i,i.option3forQuestion1)" [checked]='i.response===i.option3forQuestion1'>{{i.option3forQuestion1 | titlecase}}</td>
+               <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline;" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" type="radio" name="{{j+1}}" class="seal-type mr-2"  value="4" (click)="multiple(i,i.option4forQuestion1)" [checked]='i.response===i.option4forQuestion1'>{{i.option4forQuestion1 | titlecase}}</td>
+                <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;"  ><textarea [hidden]="i.questiontype==='Multiple Type'" autocomplete="off"  appTextareaAutoresize style="border-right-style:none;border-top-style:none;border-left-style:none;outline: none;overflow: hidden; text-transform: capitalize;" [(ngModel)]="i.response" (blur)="fillintheblank(i,answeer.value)" #answeer type="text" ></textarea></td>
+              </tr>
+              
+          </table>
+          
+
+          
+          
+        
+        
+        
+        
+              <!-- The Modal code for final submit Starts from here -->
+              <div class="modal modal" id="submitsurvey">
+                <div class="modal-dialog modal-lg" >
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+        
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p class="text-center mt-3"  style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center !important;"><b>{{successmessage}}</b></p>
+             
+                    </div>
+                    
+         
+        
+        
+        
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn" style="color: white;background-color: #0972b8; font-size: 17px;font-family: verdana" data-dismiss="modal">Close</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+                    <!-- The Modal code Ends from here -->
+          
+            <div class="text-center" *ngIf="hidesavebutton" >
+                <button (click)="sendresponse()" class="btn mb-3" type="submit" data-toggle="modal" data-target="#submitsurvey" style="color: white;margin-top: 30px;background-color: #0972b8; font-size: 17px;font-family: verdana"  ><b>Submit Survey</b></button>
+            </div>
+            <button style="margin-top: 30px; margin-bottom: 30px; background-color: #0972b8; color: white;font-size: 17px; display: block; margin-left: auto; margin-right: auto;" type="button" (click)="gobackToHome()" class="btn"><b>Close</b></button>
+            <pagination-controls style="text-align: left;" id="pagination4" (pageChange) = "tm = $event"></pagination-controls>
+        </div>
+
+        <div *ngIf = "firstdivclosing" style="margin-top: 100px;margin-bottom: 100px;">
+          
+            <h5 style="text-align: center;white-space: nowrap;color: black;margin-top: 10px;font-size: 22px;font-family: verdana;" ><b><u>Completed Survey</u></b> </h5>
+            <table class="table table-sm table-bordered" style="font-family: verdana;font-size: 15px;margin-bottom: 30px;">
+                <thead style="text-align: center;background-color: #0972b8;color: white;">
+                    <th>SNo</th>
+                    <th>Survey Name</th>                            
+                    <!-- <th>Assigned On</th> -->
+                    <th>Filled Date</th>
+                    <th>Status</th>
+                    <th>View</th>
+                    
+                </thead>
+                <tr *ngFor="let iii of completedsurveydupliactes | paginate:{id:'pagination2',itemsPerPage:5,currentPage:ts};let jjj=index;" style="text-align: center;">
+                    <td style="table-layout: fixed;width: 50px;vertical-align: baseline;">{{5 *(ts-1)+jjj+1}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline; text-align: left;">{{iii.testName | titlecase}}</td>                            
+                    <!-- <td>{{iii.CreatedDate}}</td> -->
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline;">{{iii.FilledDate}}</td>
+                    <td style="table-layout: fixed;width: 200px;vertical-align: baseline;">{{iii.status | titlecase}}</td>
+                    <td style="text-align: center;table-layout: fixed;width: 200px;vertical-align: baseline;"><i  style="color: #0972b8;font-size: 24px;" type="button" data-toggle="modal" data-target="#myModal" (click)="viewoverallsurveyform(iii.testName)"  class="fa fa-eye"></i></td>
+    
+                </tr>
+            </table>
+            <pagination-controls style="text-align: left;" id="pagination2" (pageChange) = "ts = $event"></pagination-controls>
+          
+        </div>
+        <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 20px;" *ngIf="thirddivclosing">
+          <button  class="btn"><i style="color: #0972b8;font-size: 40px;" type="button" (click)="gobackToHome()" class="fa fa-home"></i></button>
+          <!-- <input type="text" name="" [(ngModel)]="term" class="ml-3" placeholder="Search" id=""> -->
+          <h5 style="color:black;font-size: 20px;font-family: verdana;text-align: center;margin-bottom: 15px;margin-top: -30px;"><b><u>{{testnameforfilledform}}</u></b></h5>
+          <h5 style="color: black;font-size: 15px;font-family: verdana;text-align: left;margin-top: 15px;"><b>Employee ID:</b> {{employeeidforfilledform}}</h5><br>
+          <h5 style="color: black;font-size: 15px;font-family: verdana;text-align: left;margin-bottom: 15px;"><b>Department: </b>{{departmentforfilledform}}</h5>
+          <hr>
+        
+            <table class="table table-bordered table-sm">
+              <thead style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+                <th style="text-align: center;">SNo</th>                        
+                <th style="text-align: center;">Question</th>                        
+                <th style="text-align: center;">Option 1</th>
+                <th style="text-align: center;">Option 2</th>
+                <th style="text-align: center;">Option 3</th>
+                <th style="text-align: center;">Option 4</th>
+                <th style="text-align: center;" >Fill in the blank</th>
+              </thead>                      
+        
+              <tr style="color: black;font-size: 15px;font-family: verdana;" *ngFor="let iiii of employeefilledresponse | paginate:{id:'pagination3',itemsPerPage:10,currentPage:tn}  ;let jjjj = index">
+                <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{10 *(tn-1)+jjjj+1}}</td>
+             <!-- <td>{{i.testName}}</td> -->
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 350px;vertical-align: baseline; ">{{iiii.questionName1}}</td>
+             <!-- <td>{{i.questiontype}}</td> -->
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline; " ><input [hidden]="iiii.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio"  [checked]='iiii.response===iiii.option1forQuestion1' disabled> {{iiii.option1forQuestion1 | titlecase}}</td>
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline; "  > <input [hidden]="iiii.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio"  [checked]='iiii.response===iiii.option2forQuestion1' disabled> {{iiii.option2forQuestion1 | titlecase}}</td>
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline; " ><input [hidden]="iiii.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio"  [checked]='iiii.response===iiii.option3forQuestion1' disabled> {{iiii.option3forQuestion1 | titlecase}}</td>
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline; " ><input [hidden]="iiii.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio"  [checked]='iiii.response===iiii.option4forQuestion1' disabled> {{iiii.option4forQuestion1 | titlecase}}</td>
+             <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline; "  style="color: #63B76C;" ><b [hidden]="iiii.questiontype==='Multiple Type'">{{iiii.response | titlecase}}</b></td>
+             
+        
+            </tr>
+            </table>
+                                
+            <!-- <div class="mt-2 text-center" >
+                <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+            </div> -->
+            <button style="margin-top: 30px; margin-bottom: 30px; background-color: #0972b8; color: white;font-size: 17px; display: block; margin-left: auto; margin-right: auto;" type="button" (click)="gobackToHome()" class="btn"><b>Close</b></button>
+            <pagination-controls style="text-align: left;" id="pagination3" (pageChange) = "tn = $event"></pagination-controls>
+          </div>
+      </div><!--column closing-->
+    </div>
+</div>
+</div>
+</body>
+</html>

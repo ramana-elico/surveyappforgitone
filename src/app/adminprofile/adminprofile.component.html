@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+          width: 100%;
+          border: 1px solid #ddd;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        };
+
+        
+        
+        
+        /* tr:nth-child(even){background-color: #f2f2f2} */
+        </style>
+</head>
+<body style="background-color: #eee;height: 100vh;">
+    <div class="w3-panel w3-card-4 container mt-5" style="width: 70%;background-color:white">
+        <hr>
+
+        <h5 class="text-center" style="color: #0972b8;font-size: 20px;font-family: verdana"><b>Change Password Here</b></h5>
+        <hr>
+        <div class="text-center">
+          
+          <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 30px;">
+          
+            <!-- <form action="">
+                <label for="" class="form-group">EmployeeID :</label>
+                <input type="text" readonly placeholder="EmployeeID" name="EmployeeID" [(ngModel)]="EmployeeID" ><br>
+                 <label for="" class="form-group">Old Password :</label>
+                <input type="password" placeholder="Password" name="Password" #oldPassword (blur)="checkoldpassword(oldPassword.value)"  ><br>
+                <label for="" class="form-group">New Password :</label>
+                <input type="password" placeholder="Password" name="Password" [(ngModel)]="newPassword" ><br>
+                <button style="color: white;background-color: #051230;margin-top: 10px;text-align: center;" [disabled]="succesmessage==='Old Password Not Matched'" (click)="saveeditedprofile()" >Submit</button>
+              </form> -->
+              <form action="/action_page.php" >
+                <div class="form-group">
+                    <label for="EmployeeID" style="float:left;font-size: 15px;font-family: verdana">Employee ID *</label>
+                    <input type="text" readonly placeholder="EmployeeID" id="EmployeeID" name="EmployeeID" [ngModel]="EmployeeID | titlecase" (ngModelChange)="EmployeeID=$event" class="form-control">
+                    <label for="oldPassword" style="float:left;margin-top: 8px;font-size: 15px;font-family: verdana">Old Password *</label>
+                    <input type="password" placeholder="Old Password" id="oldPassword" name="oldPassword" #oldPassword (blur)="checkoldpassword(oldPassword.value)" [(ngModel)]="oldPasswordvalue"  class="form-control">
+                    <p class="text-left" style="color:#0972b8;font-size: 20px;font-family: verdana;"><b>{{succesmessage}}</b></p>
+                    <label for="newPassword" style="float:left;margin-top: 8px;font-size: 15px;font-family: verdana">New Password *</label>
+                    <input type="password" placeholder="New Password" name="newPassword" [(ngModel)]="newPassword" class="form-control" #passwordref="ngModel" required pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#!%*?&])[A-Za-z\d$@$#!%*?&].{8,}'>
+                    <div *ngIf="passwordref.errors && (passwordref.invalid || passwordref.touched)">                
+                      <!-- <small *ngIf="passwordref.errors.required">New Password Is Required</small> -->
+                      <small *ngIf="passwordref.errors.pattern">Password Should At Least 9 Characters In Length With Lowercase, Uppercase, Special Characters and Numbers</small>
+                    </div><br><br>
+                    <button data-toggle="modal" class="btn" data-target="#mymodalchangepassword" style="color: white;background-color: #0972b8;margin-top: 10px;text-align: center;font-size: 17px;font-family: verdana" [disabled]="succesmessage==='Old Password Not Matched' || passwordref.invalid" (click)="saveeditedprofile()" ><b>Update</b></button>
+                </div>
+              </form> 
+              <!-- <div class="text-left">
+                <button routerLink="">Back</button>
+            </div> -->
+         
+        </div>
+        </div>
+
+
+
+<!-- Modal For Popup Message -->
+<!-- The Modal -->
+<div class="modal" id="mymodalchangepassword" >
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h5 class="text-center" style="color: #0972b8;font-size: 20px;white-space: nowrap;;font-family: verdana"><b>{{modalsucessmessage}}</b></h5>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn " style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana" data-dismiss="modal"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+      </div>
+
+</body>
+</html>

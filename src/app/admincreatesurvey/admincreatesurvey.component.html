@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+          width: 100%;
+          border: 1px solid #ddd;
+        }
+        
+        th, td {
+          text-align: left;
+          padding: 8px;
+        }
+        
+
+
+
+/* The Modal (background) */
+.modalforcreatequestion {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 45px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border-radius: 3px;
+}
+
+/* Modal Content */
+.modal-contentforcreatequestion {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  width: 53%;
+  
+
+}
+
+/* The Close Button */
+.closeforcreatequestion {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #ced4da;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #ced4da;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #0972b8;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #0972b8;
+    }
+
+    small
+      {
+        font-family: verdana;
+        font-size: 15px;
+        color: #0972b8;
+        text-align: left !important;
+        float: left !important;
+      }
+
+
+        /* tr:nth-child(even){background-color: #f2f2f2} */
+        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: #eee;height: 100vh;">
+    <div class="container-fluid" >
+        <div class="w3-panel w3-card-4"style="background-color:white;margin-top:20px" >
+            <h5 style="color: #0972b8;text-align: center;font-size: 22px;font-family: verdana;padding: 15px;"><b>Create Survey Form</b></h5>
+            <hr>
+      <!-- choose the answers *ngIf="openchoosetheanswer" -->
+       <div class="mt-2" >
+           <div class="row mt-1">
+               <div class="col-4">
+                <!-- <p>Note:You selected <b style="font-family: verdana;color: #0972b8;">{{type}}</b> as Question Type</p> -->
+               </div>
+               <div class="col-4 text-center">
+                   <!-- <select name="" id="" style="color: white;background-color: #002b80;">
+                       <option value="" selected="true" disabled="disabled">Select Department</option>
+                       <option value="">Software</option>
+                       <option value="">Finance</option>
+                       <option value="">Medical Billing</option>
+                   </select> -->
+                   <!-- <p style="color: #051230;text-align: center;font-size: 20px;font-family: verdana" >{{sucessmessage}}</p> -->
+               </div>
+               <div class="col-4">
+                   <p style="color: #0972b8;font-size: 20px;font-family: verdana">Created Question are:<b class="ml-2">{{completedquestion}}</b></p>
+               </div>
+           </div>
+
+           
+           <br>
+           <!-- Test name -->
+           <form #ref="ngForm" (ngSubmit)="createquestion(ref.value)">
+           <div class="row mt-2" >
+               <div class="col-2">
+                <h6 style="float:left;font-size: 17px;font-family: verdana;font-weight: bold;" > Survey Name *</h6>
+               </div>
+               <div class="col-8" style="margin-bottom: 50px;">
+                  <input type="text" style="font-size: 17px;font-family: verdana;font-weight: bold;" class="form-control sm" id="testName" (blur)="checkdupliactestestname()" [readonly]='edittestName' name="testName" [ngModel]="testName | titlecase" (ngModelChange)="testName=$event"   placeholder="Enter Survey Name" #testnameref="ngModel" required pattern="^[A-Za-z0-9&-]+(?:[ _-][A-Za-z0-9&-]+)*$" minlength="2" maxlength="256">                  
+                  <div *ngIf="testnameref.errors && (testnameref.invalid || testnameref.touched)">                
+                    <!-- <small *ngIf="testnameref.errors.required">Survey Name Is Required</small> -->
+                    <small *ngIf="testnameref.errors?.minlength">Survey Name Minimum Length Is 2 Characters</small>
+                    <small *ngIf="testnameref.errors?.maxlength">Survey Name Maximum Length Is 256 Characters</small>
+                    <small *ngIf="testnameref.errors.pattern">Survey Name May Contains Characters, Numeric Values & Few Special Characters (&, -)</small>
+                  </div>
+                </div>
+            <div class="col-2"></div>
+            </div>
+            <div class="row mt-2" >
+              <div class="col-2">
+                <h6 style="float:left;font-size: 17px;font-family: verdana;" >Survey Validity *</h6>
+              </div>
+              <div class="col-8" >
+                <input type="text" [disabled]='edittestName' style="font-size: 17px;font-family: verdana"
+                placeholder="Select Survey Duration"
+                class="form-control"
+                bsDaterangepicker
+                [bsConfig]="{ adaptivePosition: true }" id="testdate" name="senddate" [minDate]="today" [(ngModel)]=senddate (ngModelChange)="bySelectingDateGetClientsList()" #senddateref="ngModel" required>
+           </div>
+           <div class="col-2"></div>
+           </div>
+            <!-- question name -->
+            <div class="row mt-2">
+                <div class="col-2">
+                 <h6 style="float:left;font-size: 15px;font-family: verdana">Enter Question *</h6>
+                </div>
+                <div class="col-8" >
+                 <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="questionName1" [(ngModel)]="questionName1" placeholder="Enter Question" #questionName1ref="ngModel" required pattern="^[A-Za-z0-9$@$#!%*?.&]+(?:[ _-][A-Za-z0-9$@$#!%*?.&]+)*$" minlength="2">
+                 <div *ngIf="questionName1ref.errors && (questionName1ref.invalid || questionName1ref.touched)">                
+                  <!-- <small *ngIf="questionName1ref.errors.required">Question Is Required</small> -->
+                  <small *ngIf="questionName1ref.errors?.minlength">Question Minimum Length Is 2 Characters</small>                  
+                  <small *ngIf="questionName1ref.errors.pattern">Question May Contains Any Characters</small>
+                </div><br/>
+                 
+                <div style="margin-top: 8px;">
+                <label for="Multiple">
+                <!-- <input type="button" style="border: none;background-color: white;" name="gender" id="Multiple"  value="Multiple Options" (click)="questiontype($event.target.value);" > -->
+                <button type="button" class="btn" style="color: white;background-color: #0972b8;font-size: 12px;font-family: verdana" height="15px" id="Multiple" (click)="questiontypeformultiple();"><b>Multiple</b></button>
+                </label>
+                <label for="fillintheBlank" class="ml-5">
+                    <!-- <input type="button" style="border: none;background-color: white;" name="gender" id="fillintheBlank"   value="Fill in the Blank" (click)="questiontype($event.target.value);"> -->
+                    <button type="button" class="btn" style="color: white;background-color: #0972b8;font-size: 12px;font-family: verdana" height="15px" id="fillintheBlank" (click)="questiontypeforfill();"><b>Fill Type</b></button>
+                    </label>
+                    <label class="ml-5"><p>Note:You selected <b style="font-family: verdana;color: #0972b8;">{{type}}</b> as Question Type</p></label>
+                </div>
+
+                </div>
+             <div class="col-2"></div>
+             
+                </div>
+
+             <!-- options -->
+             <div class="row mt-2" *ngIf="openchoosetheanswer">
+                <div class="col-2">
+                 <h6 style="float:left;font-size: 15px;font-family: verdana">Enter Options</h6>
+                </div>
+                <div class="col-2" >
+                 <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option1forQuestion1" [ngModel]="option1forQuestion1 | titlecase" (ngModelChange)="option1forQuestion1=$event"  placeholder="Enter Option1" >
+             </div>
+             <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option2forQuestion1" [ngModel]="option2forQuestion1 | titlecase" (ngModelChange)="option2forQuestion1=$event"  placeholder="Enter Option2" >
+            </div>
+            <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option3forQuestion1" [ngModel]="option3forQuestion1 | titlecase" (ngModelChange)="option3forQuestion1=$event" placeholder="Enter Option3" >
+            </div>
+            <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option4forQuestion1" [ngModel]="option4forQuestion1 | titlecase" (ngModelChange)="option4forQuestion1=$event" placeholder="Enter Option4" >
+            </div>
+             <div class="col-2"></div>
+             </div>
+
+             <!-- fill type blank -->
+             <div class="row mt-2" *ngIf="openfillintheblank">
+                <div class="col-2">
+                 <h6 style="float:left;font-size: 15px;font-family: verdana">Fill the Blank</h6>
+                </div>
+                <div class="col-8" >
+                    <h6 style="float:left;font-size: 15px;font-family: verdana">__________________________________________</h6>
+             </div>
+             <div class="col-2"></div>
+             </div>
+
+             <div class="button text-center mt-4 mb-5">
+                 <button type="submit"  [disabled]="message==='Testname Already Found !!' || testnameref.invalid || questionName1ref.invalid || senddateref.invalid" class="btn" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana" ><b>Save Question</b>  </button>
+                 <button type="button" class="btn" (click)="finalsubmit()" style="color: white;background-color: #0972b8; font-size: 17px;font-family: verdana;margin-left: 5px;" data-toggle="modal" data-target="#finalsubmit"><b>Submit Survey</b></button>
+                
+             </div>
+             <p style="color: red;text-align: center;font-size: 20px;font-family: verdana" >{{sucessmessage}}</p>
+            </form>
+
+
+
+
+       </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+                <!-- To Edit The Created Question  -->
+                <!-- <hr> -->
+        <!-- <h4 style="color: #051230;text-align: center;margin-top: 10px;">Created Question list</h4> -->
+        <hr>
+    <div style="overflow-x:auto; margin-bottom: 30px;">
+        <!-- <p><b>Note:</b> If there is no options for question, then it is a <b>Fill in the Blank</b> Type Question</p> -->
+        <table border="1">
+          <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+            <th style="text-align: center;">SNo</th>
+            <th style="text-align: center;">Survey Name</th>
+            <th style="text-align: center;">Question  <input type="text"  style="font-size: 15px;font-family: verdana;color: #051230 !important;" name="" [(ngModel)]="term" class="ml-3" placeholder="Search" id=""></th>
+            <th style="text-align: center;">Question Type</th>
+            <th style="text-align: center;">Option 1</th>
+            <th style="text-align: center;">Option 2</th>
+            <th style="text-align: center;">Option 3</th>
+            <th style="text-align: center;">Option 4</th>
+            <th style="text-align: center;" >Fill in the blank</th>
+            <th style="text-align: center;">Edit</th>
+            <th style="text-align: center;">Delete</th>
+           
+          </tr>
+          <tr *ngFor="let i of completedquestionlist | filter:term | paginate: { itemsPerPage: 10, currentPage: p };let j=index" style="font-size: 15px;">
+              <td style="table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;font-family:verdana;font-size:15px;">{{10 *(p-1)+j+1}}{{j+1}}</td>
+              <td style="table-layout: fixed;width: 200px;vertical-align: baseline;font-family:verdana;font-size:15px;">{{i.testName | titlecase}}</td>
+              <td style="table-layout: fixed;width: 200px;vertical-align: baseline;font-family:verdana;font-size:15px;" >{{i.questionName1}}</td>
+            <td style="table-layout: fixed;width: 200px;vertical-align: baseline;font-family:verdana;font-size:15px;">{{i.questiontype}}</td> 
+            <td  style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Fill-in-the-blank'"><input class="mr-2" type="radio" disabled>{{i.option1forQuestion1 | titlecase}}</td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Fill-in-the-blank'"><input class="mr-2" type="radio" disabled>{{i.option2forQuestion1 | titlecase}}</td>
+            <td  style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Fill-in-the-blank'"><input class="mr-2" type="radio" disabled>{{i.option3forQuestion1 | titlecase}}</td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Fill-in-the-blank'"><input class="mr-2" type="radio" disabled>{{i.option4forQuestion1 | titlecase}}</td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Fill-in-the-blank'"></td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Multiple Type'"></td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Multiple Type'"></td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Multiple Type'"></td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Multiple Type'"></td>
+            <td style="font-family:verdana;font-size:15px;table-layout: fixed;width: 200px;vertical-align: baseline" [hidden]="i.questiontype==='Multiple Type'">___________________</td>
+              
+         <td style="text-align: center;color: #0972b8;table-layout: fixed;width: 200px;vertical-align: baseline"><i class="fa fa-pencil" (click)="editcompletedquestion(i)" style="font-size:22px"type="button" data-toggle="modal" data-target="#myModal"></i></td>
+         <th style="text-align: center;color: red;table-layout: fixed;width: 200px;vertical-align: baseline"><i class="glyphicon glyphicon-trash" (click)="alertfordeletequestion(i)" data-toggle="modal" data-target="#deletequestion" type="button" style="font-size:22px"></i></th>
+        </tr>
+        
+    
+        </table>
+        <div class="mt-2 mb-3 text-center" >
+            <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+        </div>
+      </div>
+
+
+    
+      <!-- The Modal code Starts from here -->
+      <div class="modal modal" id="myModal">
+        <div class="modal-dialog modal-xl" >
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                
+                <div class="row mt-4" >
+                    <div class="col-2">
+                     <h6 style="font-size: 17px;font-family: verdana;font-weight: bold;"> Survey Name *</h6>
+                    </div>
+                    <div class="col-8" >
+                     <input type="text" style="font-size: 17px;font-family: verdana;font-weight: bold;" class="form-control sm" name="testName" readonly [ngModel]="edittestName | titlecase" (ngModelChange)="edittestName=$event"  placeholder="Enter Survey Name" #edittestnameref="ngModel" required pattern="^[A-Za-z0-9&-]+(?:[ _-][A-Za-z0-9&-]+)*$" minlength="2" maxlength="256">
+                     <div *ngIf="edittestnameref.errors && (edittestnameref.invalid || edittestnameref.touched)">                
+                        <!-- <small *ngIf="edittestnameref.errors.required">Survey Name Is Required</small> -->
+                        <small *ngIf="edittestnameref.errors?.minlength">Survey Name Minimum Length Is 2 Characters</small>
+                        <small *ngIf="edittestnameref.errors?.maxlength">Survey Name Maximum Length Is 256 Characters</small>
+                        <small *ngIf="edittestnameref.errors.pattern">Survey Name May Contains Characters, Numeric Values & Few Special Characters (&, -)</small>
+                      </div>
+                 </div>
+                 <div class="col-2"></div>
+                 </div>
+                 <div class="row" style="margin-top: 50px;" >
+                  <div class="col-2">
+                    <h6 style="font-size: 15px;font-family: verdana">Survey Validity *</h6>
+                  </div>
+                  <div class="col-8" >
+                    <input type="text"
+                    placeholder="Select Survey Duration" style="font-size: 15px;font-family: verdana"
+                    class="form-control"
+                    bsDaterangepicker
+                    [bsConfig]="{ adaptivePosition: true }" id="testdateForEdit" name="senddateForEdit" [minDate]="todayForEdit" [(ngModel)]="senddateForEdit" (ngModelChange)="bySelectingDateGetPickerDateEdit()" #editsenddateref="ngModel" required>
+                    
+                  </div>
+                  <div class="col-2"></div>
+                </div>
+                 <!-- question name -->
+                 <div class="row mt-2">
+                     <div class="col-2">
+                      <h6 style="font-size: 15px;font-family: verdana;white-space: nowrap;">Enter Question *</h6>
+                     </div>
+                     <div class="col-8" >
+                      <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="questionName1" [(ngModel)]="editquestionName1" placeholder="Enter Question" #editquestionName1ref="ngModel" required pattern="^[A-Za-z0-9$@$#!%*?.&]+(?:[ _-][A-Za-z0-9$@$#!%*?.&]+)*$" minlength="2">
+                      <div *ngIf="editquestionName1ref.errors && (editquestionName1ref.invalid || editquestionName1ref.touched)">                
+                        <!-- <small *ngIf="editquestionName1ref.errors.required">Question Is Required</small> -->
+                        <small *ngIf="editquestionName1ref.errors?.minlength">Question Minimum Length Is 2 Characters</small>                  
+                        <small *ngIf="editquestionName1ref.errors.pattern">Question May Contains Any Characters</small>
+                      </div>
+                      
+                     <div style="margin-top: 8px;">
+                     <label for="Multipleforedit">
+                     <input type="radio"  name="gender" id="Multipleforedit" [checked]="radiocheckedformultiple"  value="Multiple" (click)="editquestiontype($event.target.value)" >
+                     Multiple type
+                     </label>
+                     <label for="Fill in the Blankforedit" class="ml-5">
+                         <input type="radio" class="ml-3" name="gender" id="Fill in the Blankforedit" [checked]="radiocheckedforchooose"  value="Fill in the Blank" (click)="editquestiontype($event.target.value)">
+                         Fill in the Blank
+                         </label>
+                     </div>
+     
+                     </div>
+                  <div class="col-2"></div>
+                  
+                     </div>
+     
+            </div>
+            
+             <!-- options -->
+             <div class="row mt-2" *ngIf="openchoosetheansweredit">
+                <div class="col-2 ml-2">
+                 <h6 style="font-size: 15px;font-family: verdana">Enter Options:</h6>
+                </div>
+                <div class="col-2" >
+                 <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option1forQuestion1" [ngModel]="option1forQuestion1edit | titlecase" (ngModelChange)="option1forQuestion1edit=$event"  placeholder="Enter Option1" >
+             </div>
+             <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option2forQuestion1" [ngModel]="option2forQuestion1edit| titlecase" (ngModelChange)="option2forQuestion1edit=$event"  placeholder="Enter Option2" >
+            </div>
+            <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option3forQuestion1" [ngModel]="option3forQuestion1edit| titlecase" (ngModelChange)="option3forQuestion1edit=$event"  placeholder="Enter Option3" >
+            </div>
+            <div class="col-2" >
+                <input type="text" style="font-size: 15px;font-family: verdana" class="form-control sm" name="option4forQuestion1" [ngModel]="option4forQuestion1edit| titlecase" (ngModelChange)="option4forQuestion1edit=$event"  placeholder="Enter Option4" >
+            </div>
+
+             </div>
+
+             <!-- fill type blank -->
+             <div class="row mt-2 ml-1" *ngIf="openfillintheblankedit">
+                <div class="col-2">
+                 <h6 style="font-size: 15px;font-family: verdana">Fill the Blank:</h6>
+                </div>
+                <div class="col-8" >
+                    <h6>__________________________________________</h6>
+             </div>
+             <div class="col-2"></div>
+             </div>
+
+             <div class="button text-center mt-4 mb-5">
+                 <button type="submit" data-toggle="modal" data-target="#sucesseditofquestion" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana" (click)="saveeditequestion()" class="btn" [disabled]="edittestnameref.invalid || editquestionName1ref.invalid || editsenddateref.invalid" ><b>Update Question</b></button>
+                 
+             </div >
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn " style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana" data-dismiss="modal"><b>Close</b></button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+            <!-- The Modal code Ends from here -->
+      
+      <!-- The Modal code for final submit Starts from here -->
+      <div class="modal modal" id="finalsubmit">
+        <div class="modal-dialog modal-lg" >
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h6 class="text-center" style="color: #0972b8;font-size: 22px;font-family: verdana"><b style="color: red !important;font-size: 22px;font-family: verdana">{{finaltestname | titlecase}} </b> Successfully Created  With <b style="color: red !important; font-size: 22px;font-family: verdana">{{finalcompletedquestion}}</b> Questions   </h6>
+     
+            </div>
+            
+ 
+
+
+
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn" style="color: white;background-color: #0972b8;font-family: verdana;" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+            <!-- The Modal code Ends from here -->
+
+      <!-- The Modal is for showing success messgae after edit of question-->
+      <div class="modal modal" id="sucesseditofquestion">
+        <div class="modal-dialog modal-lg" >
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!-- <h6 class="text-center"><b style="color: red;font-size: 15px;font-family: verdana">{{finaltestname}} </b> Successfully Created  with <b style="color: red;font-size: 15px;font-family: verdana">{{finalcompletedquestion}}</b> Questions   </h6> -->
+                <p style="color: #0972b8;text-align: center;margin-bottom: 5px;margin-top: 10px;font-size: 22px;font-family: verdana;"><b>{{messsageafterupdation}}</b></p>
+            </div>
+            
+ 
+
+
+
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn" style="color: white;background-color: #0972b8;font-family: verdana;" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+
+          <!-- modal is used for checking the duplicates for testname -->
+          <div style="text-align: center !important;" >
+            <div class="card" id="myModalforlogin" class="modalforcreatequestion">
+              <div class="card-header modal-contentforcreatequestion ">
+                <button type="button" class="close" data-dismiss="modal" (click)="close()" style="color:  #0972b8;padding-bottom: 50px !important;">&times;</button>
+                <div class="mt-3"></div>
+              </div>
+          
+              <div class="card-body modal-contentforcreatequestion">
+                <p style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center !important;margin-top: 10px;word-wrap: break-word;display: inline;"><b>{{message}}</b></p><br>
+              </div>
+              <div class="card-footer modal-contentforcreatequestion">
+                <div style="text-align: right !important">
+                  <button type="button" class="btn" data-dismiss="modal" (click)="close()" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana;"><b>Close</b></button>
+                  <!-- <i *ngIf="Loadingoption" class="spinner-border ml-1" style="color: #0972b8;"></i> -->
+                 </div>
+              </div>
+          
+           </div>
+          </div>
+
+    <!-- delete question model         -->
+
+<div class="modal" id="deletequestion"  >
+  <div class="modal-dialog modal-lg"  >
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" data-dismiss="modal" style="color:  #0972b8;">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body" style="overflow-x:auto; ">
+
+        <div class="text-center">
+          <p style="color: #0972b8;font-size:17px;font-family: verdana;">Are You Sure You Want To Delete Question ?</p><br>
+        </div>
+          <div class="text-center">
+            <button type="button" class="btn mr-2" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">No</button>
+            <button class="btn ml-2" data-dismiss="modal" style="color: white;background-color:#0972b8 ;font-size: 17px;font-family: verdana;" (click)="deletequestion(questionfordelete)">yes</button>
+          </div>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">Close</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+        
+
+
+
+
+
+      
+            </div>   
+           
+    </div>
+
+      
+
+    
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+

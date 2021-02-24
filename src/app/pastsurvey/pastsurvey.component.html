@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+/* tr:nth-child(even){background-color: #f2f2f2} */
+</style>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="w3-panel w3-card-4">
+            <h4 style="color: #002b80;text-align: center;margin-top: 10px;">Completed Survey's</h4>
+            <hr>
+
+        
+<div style="overflow-x:auto; margin-bottom: 30px;">
+    <table border="1">
+      <tr style="background-color: #c6d9ec;">
+        <th>S no</th>
+        <th>Testname</th>
+        <th>Question</th>
+        <th>Responce from You</th>
+        <th>Your Id</th>
+        <th>Your Department</th>
+        <td></td>
+      </tr>
+      <tr *ngFor="let i of responcefromUser ;let j = index  ">
+        <td>{{j}}</td>
+     <td>{{i.Testname}}</td>
+     <td>{{i.Question}}</td>
+     <td>{{i.responce}}</td>
+     <td>{{i.UserId}}</td>
+     <td>{{i.department}}</td>    
+     <td><i class="fa fa-edit" (click)="edittheresponse(i)"  type="button" data-toggle="modal" data-target="#myModal" style="font-size: 24px;color: black;" ></i></td>
+    </tr>
+    </table>
+  </div>
+    </div>
+        
+    </div>
+
+
+    <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <div class="mt-3 mb-3 form-group">
+                <label for="">TestName:</label><br>
+                <input type="text" [(ngModel)]="editpastsurvey.Testname" class="form-control mb-2">
+                <label for="">Question:</label><br>
+                <input type="text" [(ngModel)]="editpastsurvey.Question" class="form-control mb-2">
+                <label for="">Responce:</label><br>
+                <input type="text" [(ngModel)]="editpastsurvey.responce" class="form-control mb-2">
+                <label for="">Department:</label><br>
+                <input type="text" [(ngModel)]="editpastsurvey.department" class="form-control mb-2">
+                <button class="btn btn-primary mt-2">save</button>
+            </div>
+
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+
+
+
+</body>
+</html>

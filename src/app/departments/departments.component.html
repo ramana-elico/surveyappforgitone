@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+      small
+      {
+        font-family: verdana;
+        font-size: 15px;
+        color: #0972b8;
+        text-align: left !important;
+        float: left !important;
+      }
+    </style>
+</head>
+<body style="background-color: #eee;height: 100vh;">
+    <div class="w3-panel w3-card-4 container" style="background-color: white;margin-top: 30px;width: 100%;" >
+        
+
+            <!-- for available departments -->
+                <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 30px;" >
+                    <h6 class="text-center" ><button class="btn" (click)="showdepartments()" id="button1" style="color:white;background-color: #0972b8;font-size: 17px;font-family: verdana"><b>Available Departments: {{departmentcount}}</b> </button> 
+                    <i class="vl ml-2 mr-2"></i> 
+                    <button class="btn" style="background-color: #0972b8;color: white;font-size: 17px;font-family: verdana" id="button2" (click)="showcreatedepartment()"><b>Create</b> <i class="fa fa-plus" style="font-size:11px"></i></button> </h6>
+                    
+                    
+                    <hr>
+                    <table border="1" *ngIf="showdepart">
+                      <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+                        <th style="text-align: center;">SNo</th>
+                        <th style="text-align: center;">Departments <input  style="color: black !important;" type="text" name="" [ngModel]="term | titlecase" (ngModelChange)="term=$event" class="ml-3" placeholder="Search" id=""></th>
+                        <th  style="text-align: center;">Users</th>
+                        <th style="text-align: center;">Edit</th>
+                        <th style="text-align: center;">Delete</th>
+                      </tr>
+                      <tr *ngFor="let i of departmentslist | filter:term | paginate: { itemsPerPage: 5, currentPage: p };let j=index">
+                        <td style="font-size: 15px;font-family: verdana; text-align: center;">{{5 *(p-1)+j+1}}</td>
+                        <td style="font-size: 15px;font-family: verdana">{{i.department | titlecase}}</td>
+                        <td style="text-align: center;color: #0972b8;font-size: 15px;font-family: verdana" ><i class="fa fa-users" style="font-size:22px" type="button" data-toggle="modal" data-target="#viewoveralluserslist" (click)="viewoveralluserslist(i.department)"  ></i></td>
+                        <td style="text-align: center;color: #0972b8;font-size: 15px;font-family: verdana" ><i class="fa fa-pencil" type="button" style="font-size:22px" (click)="editdepartments(i)" data-toggle="modal" data-target="#myModal"></i></td>
+                        <td style="text-align: center;color: red;font-size: 15px;font-family: verdana" ><i class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#deletedepartment" type="button" (click)="alertfordeletedepartment(i)" style="font-size:22px"></i></td>
+
+                      </tr>
+
+                    </table>
+                    <div class="mt-2 text-center" *ngIf="showdepart">
+                        <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+                    </div>
+
+ 
+
+                        <!-- for available departments code Ends-->
+
+
+          <!-- The Modal code Starts from here for viewing the avilable users in particular departments-->
+          <div class="modal modal" id="viewoveralluserslist">
+            <div class="modal-dialog modal-xl" >
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                 
+                  <button type="button" class="close" data-dismiss="modal">&times;</button><br/>
+                  
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <h6 style="color: #0972b8;text-align: center !important;font-size: 22px;font-family: verdana;margin-bottom: 20px;"><b>{{messageerror}}</b></h6>
+                  <div style="overflow-x:auto;">
+                    <table border="1">
+                      <tr style="background-color:  #0972b8;color: white;font-size: 15px !important;font-family: verdana !important;">
+                        <th style="text-align: center;">SNo</th>
+                        <th style="text-align: center;" >Employee ID <input type="text" name="" [ngModel]="termforviewusers | titlecase" (ngModelChange)="termforviewusers=$event" class="ml-3" placeholder="Search" id="" style="color: #051230;font-size: 15px !important;font-family: verdana !important;"></th>
+                        <th style="text-align: center;">User Name</th>
+                      <th style="text-align: center;">Role</th>
+                      <th style="text-align: center;">Department</th>
+                      <th style="text-align: center;">Delete</th>
+                    </tr>
+                      <tr *ngFor="let i of availableuser | filter:termforviewusers ;let j=index">
+                        <td style="font-size: 15px;font-family: verdana; text-align: center;" >{{j+1}}</td>
+                        <td style="font-size: 15px;font-family: verdana">{{i.EmployeeID | titlecase}}</td>
+                        <td style="font-size: 15px;font-family: verdana">{{i.UserName | titlecase}}</td> 
+                        <td style="font-size: 15px;font-family: verdana">{{i.Role | titlecase}}</td>
+                        <td style="font-size: 15px;font-family: verdana">{{i.Departments | titlecase}}</td>
+                        <td style="text-align: center;color: red;"><i class="glyphicon glyphicon-trash" type="button" data-toggle="modal" data-target="#deleteavilableuser" (click)="deleteavailableusers(i)" style="font-size:22px"></i></td>
+                      </tr>
+                      
+                    </table>
+                    <!-- <h6 style="color: #051230;text-align: center;margin-top: 10px;font-size: 15px;font-family: verdana">{{messageerror}}</h6> -->
+
+                  </div>
+                    
+         
+                </div>
+                
+
+    
+    
+                 <!-- <div class="button text-center mt-4 mb-5">
+                     <button type="submit" data-dismiss="modal" style="color: white;background-color: #051230;"  >Save Changes</button>
+                     
+                 </div > -->
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-dismiss="modal" style="background-color:  #0972b8;color: white;font-size: 17px !important;font-family: verdana !important;"><b>Close</b></button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+                <!-- The Modal code Ends from here -->
+
+<!-- modal is for showing alert for delete the user starts from here -->
+  
+   <div class="modal" id="deleteavilableuser"  >
+    <div class="modal-dialog modal-lg"  >
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Modal Heading</h4> -->
+          <button type="button" class="close" data-dismiss="modal" style="color:  #0972b8;">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" style="overflow-x:auto; ">
+  
+          <div class="text-center">
+            <p style="color: #0972b8;font-size:17px;font-family: verdana;">Are You Sure You Want To Delete <b>{{userdetails.EmployeeID | titlecase}} ?</b></p><br>
+          </div>
+            <div class="text-center">
+              <button type="button" class="btn mr-2" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">No</button>
+              <button class="btn ml-2" data-dismiss="modal" style="color: white;background-color:#0972b8 ;font-size: 17px;font-family: verdana;" (click)="deleteuser(userdetails)">yes</button>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- //delete department Modal -->
+<div class="modal" id="deletedepartment"  >
+  <div class="modal-dialog modal-lg"  >
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" data-dismiss="modal" style="color:  #0972b8;">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body" style="overflow-x:auto; ">
+
+        <div class="text-center">
+          <p style="color: #0972b8;font-size:17px;font-family: verdana;">Are You Sure You Want To Delete <b>{{departmentfordelete.department | titlecase}} ?</b></p><br>
+        </div>
+          <div class="text-center">
+            <button type="button" class="btn mr-2" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">No</button>
+            <button class="btn ml-2" data-dismiss="modal" style="color: white;background-color:#0972b8 ;font-size: 17px;font-family: verdana;" (click)="deletedepartment(departmentfordelete)">yes</button>
+          </div>
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">Close</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+                
+
+
+
+
+
+
+
+            <!-- for create departments -->
+         <div class="text-center" *ngIf="hidedepart">
+                   <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 30px;">
+                    <!-- <p style="text-align: center;color: blue;margin-top: 5px;margin-bottom: 20px;font-size: 15px;font-family: verdana">{{successmessage}}</p> -->
+                    <div class="card">
+                      <!-- <p style="text-align: center;color: #051230;margin-top: 5px;font-size: 15px;font-family: verdana">{{successmessage}}</p> -->
+                        <form class="ml-5 mr-5 " style="margin-top: 4%;margin-bottom:45px;">
+                            <label for="department" style="float: left;font-size: 15px;font-family: verdana">Department Name</label><br>
+                            <input style="font-size: 15px;font-family: verdana" type="text"  class="form-control" #department  [ngModel]="newdepartment | titlecase" (ngModelChange)="newdepartment=$event" [ngModelOptions]="{standalone: true}" placeholder="Enter Department name" #departmentref="ngModel" required pattern="^[A-Za-z0-9&-]+(?:[ _-][A-Za-z0-9&-]+)*$" minlength="2" maxlength="256">
+                            <div *ngIf="departmentref.errors && (departmentref.invalid || departmentref.touched)">                
+                              <small *ngIf="departmentref.errors.required">Department Name Is Required</small>
+                              <small *ngIf="departmentref.errors?.minlength">Department Name Minimum Length Is 2 Characters</small>
+                              <small *ngIf="departmentref.errors?.maxlength">Department Name Maximum Length Is 256 Characters</small>
+                              <small *ngIf="departmentref.errors.pattern">Department Name May Contains Characters, Numeric Values & Few Special Characters (&, -) </small>
+                            </div> <br/>
+                            <button class="btn" data-toggle="modal" data-target="#createdepartment" style="color: white;background-color: #0972b8;margin-top: 10px;font-size: 17px;font-family: verdana;display: block;margin-left: auto;margin-right: auto;" (click)="createdepartment()" [disabled]="departmentref.invalid"><b>Create</b></button>
+                        </form>
+                    </div>
+                  </div>
+            </div> 
+        </div>
+               <!-- for create departments code Ends -->
+   
+   
+<!-- //createdepartment Modal -->
+<div class="modal" id="createdepartment"  >
+  <div class="modal-dialog modal-lg"  >
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" data-dismiss="modal" style="color:  #0972b8;">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+       <p style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center;"><b>{{successmessage}}</b></p>
+       <!-- <i *ngIf="Loadingoption" class="spinner-border ml-1" style="color: #0972b8;"></i> -->
+      
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+   <!-- Model for edit the department -->
+   <!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" style="color: #0972b8;" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 30px;">
+          <!-- <p style="text-align: center;color: blue;margin-top: 5px;margin-bottom: 20px;font-size: 15px;font-family: verdana">{{successmessage}}</p> -->
+          <div class="card">
+            <!-- <p style="text-align: center;color: #051230;margin-top: 5px;font-size: 15px;font-family: verdana">{{successmessage}}</p> -->
+              <form class="ml-5 mr-5 " style="margin-top: 4%;margin-bottom:45px;">
+                  <label for="department" style="float: left;font-size: 15px;font-family: verdana">Edit Department </label><br>
+                  <input style="font-size: 15px;font-family: verdana" type="text"  class="form-control" id="editdepartment" [ngModel]="newdepartmentforedit | titlecase" (ngModelChange)="newdepartmentforedit=$event" [ngModelOptions]="{standalone: true}" placeholder="Enter Department name" #editdepartmentref="ngModel" required pattern="^[A-Za-z0-9&-]+(?:[ _-][A-Za-z0-9&-]+)*$" minlength="2" maxlength="256">                  
+                            <div *ngIf="editdepartmentref.errors && (editdepartmentref.invalid || editdepartmentref.touched)">                
+                              <small *ngIf="editdepartmentref.errors.required">Department Name Is Required</small>
+                              <small *ngIf="editdepartmentref.errors?.minlength">Department Name Minimum Length Is 2 Characters</small>
+                              <small *ngIf="editdepartmentref.errors?.maxlength">Department Name Maximum Length Is 256 Characters</small>
+                              <small *ngIf="editdepartmentref.errors.pattern">Department Name May Contains Characters, Numeric Values & Few Special Characters (&, -)</small>
+                            </div><br/>
+                  
+                  <button class="btn" style="color: white;background-color: #0972b8;margin-top: 10px;font-size: 17px;font-family: verdana;display: block;margin-left: auto;margin-right: auto;" data-toggle="modal" data-target="#savediteddepartment" (click)="saveediteddeprtment()" [disabled]="editdepartmentref.invalid"><b>Update</b></button>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color: #0972b8;margin-top: 10px;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- modal ends -->
+   
+<!-- the modal is used to show success message after updation of department    -->
+<div class="modal" id="savediteddepartment">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Modal Heading</h4> -->
+        <button type="button" class="close" style="color: #0972b8;" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div style="overflow-x:auto; margin-bottom: 30px;margin-top: 30px;">
+          <!-- <p style="text-align: center;color: #0972b8;font-size: 5px;font-family: verdana"><b>{{successmessage}}</b></p> -->
+          <p style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center;"><b>{{successmessage}}</b></p>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color: #0972b8;margin-top: 10px;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+   
+    </div>
+
+
+</body>
+</html>

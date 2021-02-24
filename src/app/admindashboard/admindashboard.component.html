@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 10px;
+        }
+
+.count{
+  font-size: 23px;
+  font-family: verdana;
+  color: black !important;
+}
+.logo{
+  font-size: 30px !important;
+  
+}
+
+        .card1{
+           /* background-color: #0972b8; */
+           background-color: #eee;
+           color: #0972b8; 
+
+          height: 120px;
+
+          }
+        .card2{
+          background-color:#eee;
+          color: #63B76C;
+          height: 120px;
+
+        }
+        .card3{
+          background-color:  #eee;
+          color:#02A4D3;
+
+          height: 120px;
+
+        }
+        .card4{
+          background-color:#eee;
+         
+          color: #5DA493;
+          height: 120px;
+
+        }
+        .card5{
+          background-color:#eee;
+          
+          color: #B768A2;
+          height: 120px;
+
+        }
+        .card6{
+          background-color:#eee;
+          color: #6B3FA0;
+          height: 120px;
+
+        }
+        .card7{
+          background-color:#0972b8;
+          height: 120px;
+        }
+        .card8{
+          background-color: #0972b8;
+          height: 120px;
+        }
+        .card9{
+          background-color:#0972b8;
+          height: 120px;
+        }
+        .card10{
+          background-color:  #0972b8;
+          height: 120px;
+        }
+        .card11{
+          background-color:  #0972b8;
+          height: 120px;
+        }
+        .card12{
+          
+        
+          background-color: #0972b8;
+          height: 120px;
+        }
+        /* .card {
+          height: 100px;
+          background-color:darkblue;
+          width: 100%;
+        } */
+
+ 
+
+        </style>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="margin-top: 30px;padding-top: 30px;padding-bottom: 10px;">
+    <!--***********Dash board cards will be starts from here**********-->
+              <!-- first row -->
+              <div class="card card1 ml-1">
+                <div class="col-md-3 w3-large mt-2  ml-2" >
+                  <i class="fa fa-building-o fa-2x logo" ></i>
+                </div>
+                <p   align="center" style=" font-size: 18px;font-family: verdana;"><b>Total Departments</b><br><p class="mr-4 ml-4" class="count" ><b >{{departsmentCount}}</b></p></p>
+  
+              </div>
+            <div class="card card2 ">
+              <!-- <div class="col-md-3 w3-xlarge text-white mt-2 ml-2 ">
+                <i class="	fa fa-street-view fa-2x" ></i>
+              </div>
+  
+              <p class="text-white" align="center" style=" font-size: 16px;"><b>Total Proofers</b><br><p class="mr-4 ml-4 ">{{proofers}}</p></p> -->
+              <div class="col-md-3 w3-xlarge mt-2  ml-2 " >
+                <i class="fa fa-male fa-2x logo" ></i>
+              </div>
+              <p   align="center" style=" font-size: 18px;font-family: verdana;"><b>Total Admins</b><br><p class="mr-4 ml-4 " class="count"><b>{{adminsCount}}</b></p></p>
+  
+            </div>
+            <div class="card card3 mr-1" >
+              <div class="col-md-3 w3-xlarge mt-2 ml-2 " >
+                <i class="	fa fa-users fa-2x logo" ></i>
+              </div>
+              
+              <p class="mt-1 " align="center" style=" font-size: 18px;font-family: verdana;"><b>Total Users</b><br><p class="mr-4 ml-4 mt-1" class="count"><b>{{usersCount}}</b></p></p>
+            </div>
+  
+  
+            <!-- second row -->
+  
+  
+  
+            <div class="card  card4 ml-1">
+              <div class="col-md-3 w3-xlarge mt-2 ml-2">
+                <i class="fa fa-file-text-o fa-2x logo" ></i>   
+              </div>
+              
+              <p class=" mt-1 " align="center" style=" font-size: 18px;font-family: verdana;"><b>Total Survey Forms</b><br><p class="mr-4 ml-4 mt-1" class="count"><b>{{availabletestnamecount}}</b></p></p>
+  
+            </div>
+            <div class="card card5">
+              <div class="col-md-3 w3-xlarge mt-2 ml-2">
+                <i class="fa fa-check-square-o fa-2x logo" ></i>
+              </div>
+              
+              <p class=" mt-1 " align="center" style=" font-size: 18px;font-family: verdana;"><b>Assigned Survey Forms</b><br><p class="mr-4 ml-4 mt-1" class="count"><b>{{surveytestnamecount}}</b></p></p>
+  
+            </div>
+            <div class="card card6 mr-1">
+              <div class="col-md-3 w3-xlarge  mt-2 ml-2">
+                <i class="fa fa-hourglass-half fa-2x logo" ></i>
+              </div>
+              
+              <p class=" mt-1 " align="center" style=" font-size: 18px;font-family: verdana;"><b>Pending Survey Forms</b><br><p class="mr-4 ml-4 mt-1" class="count"><b>{{availabletestnamecount-surveytestnamecount}}</b></p></p>
+  
+            </div>
+  
+  
+  
+            <!-- third row -->
+  
+  
+  
+            <!-- <div class="card card7 ml-1">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class="fa fa-question fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>Pending Rows</b><br><p class="mr-4 ml-4 mt-1">{{totalpendingfiles}}</p></p>
+  
+            </div>
+            <div class="card card8">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class="fa fa-thumbs-up fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>Completed Rows</b><br><p class="mr-4 ml-4 mt-1">{{gettingCompletedRows}}</p></p>
+  
+            </div>
+            <div class="card card9 mr-1">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class=" 	fa fa-filter fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>Assigned Users</b><br><p class="mr-4 ml-4 mt-1">{{asignedusernumber}}</p></p>
+  
+            </div> -->
+  
+  
+            <!-- fourth row -->
+  
+  
+  
+            <!-- <div class="card card10 ml-1">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class="fa fa-spinner fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>To Be Assigned Users</b><br><p class="mr-4 ml-4 mt-1">{{tobeassignedusers}}</p></p>
+  
+            </div>
+            <div class="card card11">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class="fa fa-check-square fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>Assigned Proofers</b><br><p class="mr-4 ml-4 mt-1">{{assignedproofernumber}}</p></p>
+  
+            </div>
+            <div class="card card12 mr-1">
+              <div class="col-md-3 w3-xlarge text-white mt-2 ml-2">
+                <i class=	"fa fa-share fa-2x" ></i>
+              </div>
+              
+              <p class="text-white mt-1 " align="center" style=" font-size: 16px;"><b>To Be Assigned Proofers</b><br><p class="mr-4 ml-4 mt-1">{{tobeassignedproofers}}</p></p>
+  
+            </div> -->
+            <!-- <div>
+              <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+            <div>
+              <canvas baseChart
+                [data]="barChartData"
+                [labels]="barChartLabels"
+                [chartType]="barChartType"
+                (chartHover)="barchartHovered($event)"
+                (chartClick)="barchartClicked($event)">
+              </canvas>
+            </div> -->
+      <!--***********End of Dash board cards will be starts from here**********-->
+</body>
+<div class="row" style="background-color: white;padding: 10px;">
+  <div class="card col-6" style="background-color: #eee;border:10px solid white !important">
+    <div>
+      <h5 style=" font-size: 18px;font-family: verdana;text-align: center;margin-top: 5px;"><b>Survey Forms Count</b></h5>
+      <canvas baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"
+      (chartHover)="chartHovered($event)"
+      [colors]="piechartcolor"
+      (chartClick)="chartClicked($event)">
+    </canvas>
+    </div>
+  </div>
+
+  <div class="card col-6" style="background-color: #eee;border:10px solid white !important">
+    <h5 style=" font-size: 18px;font-family: verdana;text-align: center;margin-top: 5px;"><b>Department Wise Users Count</b></h5>
+    <div>
+      <canvas baseChart
+    [datasets]="barChartData"
+      
+      [labels]="barChartLabels"
+      [chartType]="barChartType"
+      (chartHover)="barchartHovered($event)"
+      [colors]="barchartcolor"
+      (chartClick)="barchartClicked($event)">
+    </canvas>
+    </div>
+  </div>
+
+</div>
+</html>

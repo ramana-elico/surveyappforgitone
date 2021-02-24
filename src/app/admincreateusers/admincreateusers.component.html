@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    
+    /* tr:nth-child(even){background-color: #f2f2f2} */
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+         body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modalforcreateaccount {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 45px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border-radius: 3px;
+}
+
+/* Modal Content */
+.modal-contentforcreateaccount {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  width: 53%;
+  
+
+}
+
+/* The Close Button */
+.closeforlogin {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+
+input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #ced4da;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #ced4da;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #0972b8;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #0972b8;
+    }
+
+    small
+      {
+        font-family: verdana;
+        font-size: 15px;
+        color: #0972b8;
+        text-align: left !important;
+        float: left !important;
+      }
+
+    </style>
+
+
+
+</head>
+<body style="background-color: #eee;height: 100vh;">
+  
+    <div class="container-fluid"  style="margin-top: 30px;">
+        <div>
+          <!-- //Form creation starts margin-left:auto;margin-right: auto   -->
+
+        <div class="card" style="width: 100%;display: block;padding: -0px -15px;">
+          <h1 class="frm__title" style="color: #0972b8;font-size: 20px !important;font-family: verdana !important;text-align: center;margin-top: 30px;"><b>Create User</b></h1>
+          <hr>
+          <!-- <p style="margin-bottom: 15px;margin-top: 15px;text-align: center;color: #0972b8;font-size: 15px;font-family: verdana;" >{{successmesage}}</p> -->
+          <!-- employee ID and Email ID -->
+          <div class="row" style="margin-bottom: 15px;margin-top: 15px;margin-left: 30px;margin-right: 30px;">
+            <div class="col-6 form-group" >
+              <label for="EmployeeID" style="font-size: 15px !important;font-family: verdana !important;">Employee ID *</label>
+              <input  [(ngModel)]="EmployeeID" type="text" class="form-control" id="EmployeeID" name="EmployeeID" (blur)="uniqueemployeeid(id.value)" #id #idref="ngModel" required pattern="^\d{3,6}$" placeholder="Please Enter Employee ID" >
+              <div *ngIf="idref.errors && (idref.invalid || idref.touched)">
+                <!-- <small [class.d-none]="idref.valid || idref.untouched">Email Id Is Required</small> -->
+                <small *ngIf="idref.errors.required">Employee ID Is Required</small>
+                <small *ngIf="idref.errors.pattern">Length Of Employee Id Must Be Between 3 to 6 Digits</small>
+              </div>              
+            </div>
+            <div class="col-6 form-group ">
+              <label for="email1" style="font-size: 15px !important;font-family: verdana !important;">Email ID *</label>
+              <input  [ngModel]="EmailID | lowercase" (ngModelChange)="EmailID=$event" type="email" class="form-control" id="EmailID" name="EmailID" placeholder="Please Enter Email ID" #emailref="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+              <div *ngIf="emailref.errors && (emailref.invalid || emailref.touched)">
+                
+                <small *ngIf="emailref.errors.required">Email Id Is Required</small>
+                <small *ngIf="emailref.errors.pattern">Please Type Your Email Address In The Format yourname@example.com</small>
+                
+              </div>
+            </div>
+
+          </div>
+          <!-- username and password -->
+
+          <div class="row" style="margin-bottom: 15px;margin-top: 15px;margin-left: 30px;margin-right: 30px;">
+            <div class="col-6 form-group" >
+              <label for="nick1" style="font-size: 15px !important;font-family: verdana !important;">User Name *</label>
+              <input [ngModel]="UserName | titlecase" (ngModelChange)="UserName=$event" type="text"class="form-control" id="nick1" name="UserName" placeholder="Please Enter User Name" #usernameref="ngModel" required pattern="^[A-Za-z]+(?:[ _-][A-Za-z]+)*$" minlength="2" maxlength="256">
+              <div *ngIf="usernameref.errors && (usernameref.invalid || usernameref.touched)">                
+                <small *ngIf="usernameref.errors.required">User Name Is Required</small>
+                <small *ngIf="usernameref.errors?.minlength">User Name Minimum Length Is 2 Characters</small>
+                <small *ngIf="usernameref.errors?.maxlength">User Name Maximum Length Is 256 Characters</small>
+                <small *ngIf="usernameref.errors.pattern">User Name Must Be Characters</small>
+              </div>
+            </div>
+            <div class="col-6 form-group">
+              <label for="pass1" style="font-size: 15px !important;font-family: verdana !important;">Password *</label>
+              <input type="text" class="form-control" id="pass1" name="Password" readonly  [(ngModel)]="defaultpassword" placeholder="Please Enter Password" #passwordref="ngModel" required pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#!%*?&])[A-Za-z\d$@$#!%*?&].{8,}'>
+              <div *ngIf="passwordref.errors && (passwordref.invalid || passwordref.touched)">                
+                <small *ngIf="passwordref.errors.required">Password Is Required</small>
+                <small *ngIf="passwordref.errors.pattern">Password Should At Least 9 Characters In Length With Lowercase, Uppercase, Special Characters and Numbers</small>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- // and Department -->
+          <div class="row" style="margin-bottom: 15px;margin-top: 15px;margin-left: 30px;margin-right: 30px;">
+            <div class="col-6 form-group " >
+              <label for="department" style="font-size: 15px !important;font-family: verdana !important;">Department *</label>     
+              <select name="" id="department" [(ngModel)]="department" style="width: 100%; height: 35px;border-color:#ebebeb" (click)="selectdepartment($event.target.value)">
+                      <option value="" selected="true" disabled="disabled">Select Department *</option>
+                      <option  value="{{i.department}}" *ngFor="let i of departmentslist">{{i.department | titlecase}}</option>
+                    </select>
+                    
+                         
+           </div>
+                       <!-- selecte role        -->
+           <div class="col-6 row" style="margin-top: 35px;margin-left: 4px;">
+            <div class="col-4" >
+              <label  style="font-size: 17px !important;font-family: verdana !important;"><b >SelectRole*</b></label>
+            </div>
+            <div class="col-3 row" >
+              <input type="radio"  style="font-size: 17px;font-family: verdana !important;" value="Admin" (click)="selectrole($event.target.value)"  name="gender"><p class="ml-1" ><b >Admin</b></p>
+            </div>
+            <div class="col-3 row">
+              <input type="radio"  style="font-size: 17px;font-family: verdana !important;" name="gender" value="User" (click)="selectrole($event.target.value)" ><p class="ml-1"><b>User</b></p>
+            </div>
+           </div>
+                   </div>
+           
+
+           
+          <div class="text-center">
+            <!-- <input type="submit" class="frm__btn-primary" value="Sign Up" > -->
+            <button type="submit"data-toggle="modal" data-target="#createaccount" (click)="createaccount()" class="btn" [disabled]="successmesage==='EmployeeID Already existed !!' || idref.invalid || usernameref.invalid || emailref.invalid || passwordref.invalid" style="color: white;background-color: #0972b8;font-size: 17px !important;font-family: verdana !important;margin-bottom: 50px;"><b>Create</b></button>
+            <button type="submit" (click)="clear()" class="btn ml-2"  style="color: white;background-color: #0972b8;font-size: 17px !important;font-family: verdana !important;margin-bottom: 50px;"><b>Clear</b></button>
+          
+          </div>
+        </div>
+
+
+
+
+          </div>
+        
+          <!-- modal is used for create account  -->
+          <div style="text-align: center !important;" >
+            <div class="card" id="myModalforlogin" class="modalforcreateaccount">
+              <div class="card-header modal-contentforcreateaccount ">
+                <button type="button" class="close" data-dismiss="modal" (click)="close()" style="color:  #0972b8;padding-bottom: 50px !important;">&times;</button>
+                <div class="mt-3"></div>
+              </div>
+          
+              <div class="card-body modal-contentforcreateaccount">
+                <p style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center !important;word-wrap: break-word;display: inline;"><b>{{successmesage}}</b></p><br>
+              </div>
+              <div class="card-footer modal-contentforcreateaccount">
+                <div style="text-align: right !important">
+                  <button type="button" class="btn" data-dismiss="modal" (click)="close()" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana;"><b>Close</b></button>
+                  <!-- <i *ngIf="Loadingoption" class="spinner-border ml-1" style="color: #0972b8;"></i> -->
+                 </div>
+              </div>
+          
+           </div>
+          </div>
+
+
+
+
+   
+   
+   
+   <!-- The Below Code is for getting all users avilable in database -->
+   <!-- <hr> -->
+   <div style="background-color: white;margin-top: 30px;margin-bottom: 60px;">
+   <div class="row" style="padding-top: 20px;">
+    <button type="submit" class="btn"  style="color: white;background-color:  #0972b8;margin-left: 30px;font-size: 17px;font-family: verdana;" (click)="getallusers()" ><b>Get Users List</b> </button>
+    <h6 style="color: #051230;margin-left: 20px;font-size: 15px;font-family: verdana;">Available User are :<b>{{userlistlength}}</b></h6>
+   </div>
+   <hr>
+   <div style="overflow-x:auto; ">
+    <table border="1">
+      <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana;text-align: center !important;">
+        <th style="text-align: center;">SNo</th>
+        <th style="text-align: center;">Employee ID <input type="text" style="color:#051230 ;" name="" [ngModel]="term | titlecase" (ngModelChange)="term=$event" class="ml-3" placeholder="Search" id=""></th>
+        <!-- <th>Password</th> -->
+        <th style="text-align: center;">User Name</th>
+        <th style="text-align: center;">Email ID</th>
+        <th style="text-align: center;">Role</th>
+        <th style="text-align: center;">Departments</th>
+        <th style="text-align: center;">Edit</th>
+        <th style="text-align: center;">Delete</th>
+       </tr>
+       <tr *ngFor="let i of UsersList| filter:term | paginate: { itemsPerPage: 5, currentPage: p };let j=index" style="font-size: 15px;font-family: verdana;">
+        <td style="table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{5 *(p-1)+j+1}}</td>
+        <td style="table-layout: fixed;width: 200px;vertical-align: baseline">{{i.EmployeeID | titlecase}}</td>
+        <!-- <td>{{i.Password}}</td> -->
+        <td style="table-layout: fixed;width: 200px;vertical-align: baseline">{{i.UserName | titlecase}}</td>
+        <td  style="table-layout: fixed;width: 200px;vertical-align: baseline">{{i.EmailID | lowercase}}</td>
+        <td style="table-layout: fixed;width: 200px;vertical-align: baseline">{{i.Role | titlecase}}</td>
+        <td style="table-layout: fixed;width: 200px;vertical-align: baseline">{{i.Departments | titlecase}}</td>
+        <td style="table-layout: fixed;width: 200px;text-align: center;vertical-align: baseline"><i class="fa fa-pencil" (click)="edituserdata(i)" data-toggle="modal" data-target="#myModal" type="button" style="font-size:22px;color: #0972b8;"></i></td>
+        <th style="table-layout: fixed;width: 200px;text-align: center;vertical-align: baseline"><i data-toggle="modal" data-target="#deleteuser" class="glyphicon glyphicon-trash" (click)="alertfordelete(i)"type="button" style="font-size:22px;color: red;"></i></th>
+       </tr>
+     </table>
+     <div class="mt-2 text-center" style="margin-bottom: 100px;" >
+      <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+  </div>
+  </div>
+</div>
+   
+
+
+
+   <!-- //delete user Modal -->
+   <div class="modal" id="deleteuser" >
+    <div class="modal-dialog modal-lg"  >
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Modal Heading</h4> -->
+          <button type="button" class="close" data-dismiss="modal" style="color:  #0972b8;">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" style="overflow-x:auto; ">
+  
+          <div class="text-center">
+            <p style="color: #0972b8;font-size:17px;font-family: verdana;margin-right: 10px;">Are You Sure You Want To Delete <b>{{userfordelete.EmployeeID}} ?</b></p><br>
+          </div>
+            <div class="text-center">
+              <button type="button" class="btn mr-2" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">No</button>
+              <button class="btn ml-2" data-dismiss="modal" style="color: white;background-color:#0972b8 ;font-size: 17px;font-family: verdana;" (click)="delete(userfordelete)">yes</button>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn" data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Model for edit starts from here -->
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="text-center">
+
+      </div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       
+        <form action="" class="form-group">
+          <div class="row">
+            <div class="col-6">
+              <label for="EmployeeID" style="font-size: 15px !important;font-family: verdana !important;">Employee ID :</label>
+              <input type="text" id="EmployeeID" class="form-control" readonly [ngModel]="employeeIDforedit | titlecase" (ngModelChange)="employeeIDforedit=$event" [ngModelOptions]="{standalone: true}" #editidref="ngModel" required pattern="^\d{3,6}$">              
+              <div *ngIf="editidref.errors && (editidref.invalid || editidref.touched)">                
+                <small *ngIf="editidref.errors.required">Employee ID Is Required</small>
+                <small *ngIf="editidref.errors.pattern">Length Of Employee Id Must Be Between 3 to 6 Digits</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="UserName" style="font-size: 15px !important;font-family: verdana !important;">User Name :</label>
+              <input type="text" id="UserName" class="form-control" [ngModel]="usernameforedit | titlecase" (ngModelChange)="usernameforedit=$event" [ngModelOptions]="{standalone: true}" #editusernameref="ngModel" required pattern="^[A-Za-z]+(?:[ _-][A-Za-z]+)*$" minlength="2" maxlength="256">              
+              <div *ngIf="editusernameref.errors && (editusernameref.invalid || editusernameref.touched)">                
+                <small *ngIf="editusernameref.errors.required">User Name Is Required</small>
+                <small *ngIf="usernameref.errors?.minlength">User Name Minimum Length Is 2 Characters</small>
+                <small *ngIf="usernameref.errors?.maxlength">User Name Maximum Length Is 256 Characters</small>
+                <small *ngIf="editusernameref.errors.pattern">User Name Must Be Characters</small>
+              </div>
+            </div>
+          </div>
+       
+            <!-- Second row -->
+            <div class="row mt-3">
+              <div class="col-6">
+
+                <label for="UserName" style="font-size: 15px !important;font-family: verdana !important;">Email ID :</label>
+                <input type="email" id="EmailID" class="form-control" [ngModel]="emailIDforedit | lowercase" (ngModelChange)="emailIDforedit=$event" [ngModelOptions]="{standalone: true}" #editemailref="ngModel" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">                
+                <div *ngIf="editemailref.errors && (editemailref.invalid || editemailref.touched)">                  
+                  <small *ngIf="editemailref.errors.required">Email Id Is Required</small>
+                  <small *ngIf="editemailref.errors.pattern">Please Type Your Email Address In The Format yourname@example.com</small>                  
+                </div>         
+              </div>
+              <div class="col-6">
+                <label for="password" style="font-size: 15px !important;font-family: verdana !important;">Password :</label>
+                <input type="password" id="password" class="form-control" [(ngModel)]="passwordforedit" [ngModelOptions]="{standalone: true}" #editpasswordref="ngModel" required pattern='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$#!%*?&])[A-Za-z\d$@$#!%*?&].{8,}'>                
+                <div *ngIf="editpasswordref.errors && (editpasswordref.invalid || editpasswordref.touched)">                
+                  <small *ngIf="editpasswordref.errors.required">Password Is Required</small>
+                  <small *ngIf="editpasswordref.errors.pattern">Password Should At Least 9 Characters In Length With Lowercase, Uppercase, Special Characters and Numbers</small>
+                </div>
+        
+              </div>
+            </div>
+            <!-- third row -->
+<div class="row mt-3">
+  <div class="col-6">
+    <div class="frm-group">
+      <label for="department" style="font-size: 15px !important;font-family: verdana !important;">Department :</label>
+      <select name="" id="" style="width: 100%;height: 35px;border-color:#ebebeb;" (click)="editselectdepartment($event.target.value)">
+         <!-- <option value="" selected="true" disabled=true>{{departmentforedit}}</option>  -->
+          <option  value="{{i.department | titlecase}}" [selected]="i.department===departmentforedit"  *ngFor="let i of departmentslist">{{i.department | titlecase}}</option>
+      </select>
+
+    </div>
+  </div>
+  <div class="col-6  row">
+
+    <div class="col-4 row " style="margin-top: 35px;margin-left: 4px;"  >
+      <label for="email1" style="font-size: 15px !important;font-family: verdana !important;">Select Role :</label>
+    </div>
+    <div class="col-4 row "  style="margin-top: 35px;">
+      <input type="radio" id="email1" class="ml-2" value="Admin" [checked]="roleforedit==='Admin'" (click)="editselectrole($event.target.value)"  name="gender">
+      <h6 class="ml-2" style="font-size: 15px !important;font-family: verdana !important;">Admin</h6>
+    </div>
+    <div class="col-4 row " style="margin-top: 35px;">
+      <input type="radio" name="gender" class="ml-2" value="User" [checked]="roleforedit==='User'" (click)="editselectrole($event.target.value)" >
+      <h6 class="ml-2" style="font-size: 15px !important;font-family: verdana !important;">User</h6>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+          <div class="text-center mt-4">
+          <button type="submit"  data-toggle="modal" data-target="#sucesseditofuserdetails"  class="btn" style="color: white;background-color: #0972b8;margin-top: 5px;font-size: 17px;font-family: verdana;" (click)="saveediteduserdata()" [disabled]="editidref.invalid || editusernameref.invalid || editemailref.invalid || editpasswordref.invalid" ><b>Update</b> </button>
+        </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal" style="background-color:  #0972b8;color: white;font-size: 17px;font-family: verdana;"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+          <!-- modal for viewing of sucessmessage after editing user details -->
+          <div class="modal" id="sucesseditofuserdetails">
+            <div class="modal-dialog modal-lg" >
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+    
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <!-- <h6 class="text-center"><b style="color: red;font-size: 15px;font-family: verdana">{{finaltestname}} </b> Successfully Created  with <b style="color: red;font-size: 15px;font-family: verdana">{{finalcompletedquestion}}</b> Questions   </h6> -->
+                     
+                     <p style="color: #0972b8;text-align: center;margin-bottom: 5px;margin-top: 10px;font-size: 22px;font-family: verdana;"><b>{{successmessageafteredit}}</b></p>
+                </div>
+                
+     
+    
+    
+    
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn" style="color: white;background-color: #0972b8;font-family: verdana;" data-dismiss="modal">Close</button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+    
+</body>
+</html>

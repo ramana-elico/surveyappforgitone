@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+small
+      {
+        font-family: verdana;
+        font-size: 15px;
+        color: #0972b8;
+        text-align: left !important;
+        float: left !important;
+      }
+
+/* tr:nth-child(even){background-color: #f2f2f2} */
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+
+/* The Modal (background) */
+.modalforlogin {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 45px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  border-radius: 10px;
+
+}
+
+/* Modal Content */
+.modal-contentforlogin {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  width: 53%;
+  
+
+}
+
+/* The Close Button */
+.closeforlogin {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #0972b8;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #0972b8;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+/* //radio button color */
+input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #ced4da;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #ced4da;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #0972b8;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid #0972b8;
+    }      
+
+    </style>
+</head>
+<body style="background-color: #eee;height: 100vh;">
+    <div class="container-fluid">
+        <div class="w3-panel w3-card-4" style="background-color:white;margin-top: 30px;">
+          <div class="row">
+          <h5 style="color: black;margin-top: 5px;margin-left: 10px;text-align: left;font-size: 20px;font-family: verdana;" class="mt-2">Available Survey's are : <b>{{availabletestnamecount}}</b> </h5>
+             <!-- <h4 style="color: #002b80;text-align: center;margin-top: 10px;">Created Forms</h4> -->
+             <!-- <input list="departmentdropdown" autocomplete="new-password" id="error" placeholder="Select Department" [(ngModel)]="departmenttoassign"  style="margin-left: 60px;width: 20%;margin-top: 5px;">
+             <datalist id="departmentdropdown">
+                <option >All Departments</option>
+               <option autocomplete="new-password" *ngFor="let b of departmentslist">{{b.department}}</option> 
+             </datalist>  -->
+             <!-- <button style="background-color: #051230;color: white;margin-top: 5px;margin-left: 10px;" type="submit" (click)="departmenttoassisgn()">select</button>  -->
+            </div>
+             <hr>
+
+ <!-- // below code is for viewing the avilabe testname in database            -->
+<div style="overflow-x:auto;">
+    <table border="1" class="mb-3">
+      <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+        <th style="font-size: 15px;font-family: verdana">SNO</th>
+        <th style="font-size: 15px;font-family: verdana">Survey Name <input type="text" style="color: #051230 !important;" name="" [ngModel]="term | titlecase" (ngModelChange)="term=$event" class="ml-3" placeholder="Search" id=""></th>
+        <th style="text-align: center;font-size: 15px;font-family: verdana">View Form</th>
+        <th style="text-align: center;font-size: 15px;font-family: verdana">Edit Form</th>
+        <th style="text-align: center;font-size: 15px;font-family: verdana">Allocate/Deallocate</th>
+        <th style="text-align: center;font-size: 15px;font-family: verdana">Active/InActive</th>
+      </tr>
+     <tr *ngFor="let i of testnamelistduplicate | filter:term | paginate: { itemsPerPage: 5, currentPage: p } ;let lk=index ">
+         <td style="font-size: 15px;font-family: verdana;table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{5 *(p-1)+lk+1}}</td> 
+       <td style="font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline" >{{i.testName | titlecase}}</td> 
+       <!--<button  data-toggle="modal" data-target="#myModalsuccess" type="button" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana;margin-top: 10px;text-align: center;" (click)="assignquestiontouser(i.testName)" ><b>Assign Form</b></button>-->
+       <td style="text-align: center;font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline"><i  style="color: #0972b8;font-size: 24px;" type="button" data-toggle="modal" data-target="#myModal" (click)="viewoverallsurveyform(i.testName)"  class="fa fa-eye"></i></td>
+       <td style="text-align: center;font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline"><i  style="color: #0972b8;font-size: 24px;" type="button" data-toggle="modal" data-target="#editquestionpencil" (click)="viewoverallsurveyform(i.testName)"  class="fa fa-pencil"></i></td>
+       <td style="text-align: center;font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline"><i style="color: #0972b8;font-size: 24px;"  data-toggle="modal" data-target="#selectdepartment" type="button"  (click)="gettingtestname(i.testName)" class="fa fa-check-square"></i></td>
+       <!-- <td style="text-align: center;font-size: 15px;font-family: verdana"><i style="color: #0972b8;font-size: 24px;"  data-toggle="modal" data-target="#changestate" type="button"  (click)="gettingasigneddepartment(i)" class="fa fa-adjust"></i></td> -->
+      <td style="text-align: center;font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline">
+            <label class="switch">
+            <input type="checkbox" (click)="activeorinactive($event,i)" [checked]="i.state==='Active'">
+            <span class="slider round"></span>
+          </label>
+
+     </td>
+     </tr>
+    
+
+
+
+
+    </table>
+    <div class="mt-2 text-center" >
+      <pagination-controls (pageChange)="p = $event" ></pagination-controls>
+  </div>
+  </div>
+
+
+
+
+  <!-- //the below table is used for viewing the survey assigned to departmentslist -->
+  <!-- <hr>
+  <div style="overflow-x:auto ;margin-top: 50px;margin-bottom: 100px;">
+
+    <button class="btn mb-3" style="color:white;background-color: #0972b8;font-size: 17px;font-family: vardana;" (click)="gettingasignedsurvey()"><b>Get Assigned Surveys</b></button>
+    <table border="1" >
+        <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+          <th>Sno</th>
+          <th>TestName <input type="text" style="color: #051230 !important;" name="" [(ngModel)]="asignedsurveys" class="ml-3" placeholder="Search" id=""></th>
+          <th>department</th>
+          <th>Created Date</th>
+          <th>Asigned Date</th>
+          <th>Last Date</th>
+          <th style="text-align: center !important;">State</th>
+        </tr>
+        <tr *ngFor="let kd of surveylist | filter:asignedsurveys ;let hg=index" style="font-size: 15px;font-family: verdana;">
+          <td>{{hg+1}}</td>
+          <td>{{kd.testName}}</td>
+          <td>{{kd.department}}</td>
+          <td>{{kd.Date}}</td>
+          <td>{{kd.AsignedDate}}</td>
+          <td></td>
+          <td style="text-align: center;"> 
+
+            <label class="switch mr-2 mt-1">
+              <input type="checkbox" [checked]="kd.state==='Active'" data-toggle="modal" data-target="#activeorinactive" (click)="activeorinactive($event,kd)" >
+              <span class="slider round"></span>
+            </label>
+            <b>{{kd.state}}</b>
+          </td>
+        </tr>
+
+    </table>
+
+  </div> -->
+
+
+
+
+    </div>
+
+
+
+
+
+          <!-- The Modal is used for view the question on testname -->
+          <div class="modal modal" id="myModal">
+            <div class="modal-dialog modal-xl" >
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+    
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div style="overflow-x:auto;overflow-y:auto;">
+                    <h5 style="color: black;font-size: 20px;font-family: verdana;margin-top: 10px;margin-bottom: 10px;text-align: center;"><u><b>{{testname}}</b></u></h5>
+                    <table class="table table-bordered table-sm mt-2" style="width: 100%;">
+                      <thead style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana">
+                        <th style="text-align: center;">SNo</th>                        
+                        <th style="text-align: center;">Question</th>                        
+                        <th style="text-align: center;">Option 1</th>
+                        <th style="text-align: center;">Option 2</th>
+                        <th style="text-align: center;">Option 3</th>
+                        <th style="text-align: center;">Option 4</th>
+                        <th style="text-align: center;" >Fill in the blank</th>
+                      </thead>
+
+                      <tr *ngFor="let i of questionlistbasedontestname ; let hk=index ">
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{hk+1}}</td> 
+                    <!-- <td>{{i.testName}}</td>  -->
+                     <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 350px;vertical-align: baseline">{{i.questionName1}}</td>
+                     <!-- <td>{{i.questiontype}}</td> -->
+                     <td style="font-family: verdana;font-size: 15px;width: 200px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input style="background-color: #0972b8;" [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option1forQuestion1 | titlecase}}</td>
+                     <td style="font-family: verdana;font-size: 15px;width: 200px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input style="background-color: #0972b8;" [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option2forQuestion1 | titlecase}}</td>
+                     <td style="font-family: verdana;font-size: 15px;width: 200px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input style="background-color: #0972b8;" [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option3forQuestion1 | titlecase}}</td>
+                     <td style="font-family: verdana;font-size: 15px;width: 200px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input style="background-color: #0972b8;" [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option4forQuestion1 | titlecase}}</td>
+                     <td style="font-family: verdana;font-size: 15px;width: 200px;table-layout: fixed;width: 200px;vertical-align: baseline" ><p style="text-align: center;" [hidden]="i.questiontype==='Multiple Type'"> _______</p></td>
+                     <!-- <td style="text-align: left;color: #0972b8;"><i class="fa fa-pencil" (click)="editcompletedquestion(i)" style="font-size:22px"type="button" data-toggle="modal" data-target="#Editquestion"></i></td> -->
+                   </tr>
+                  
+                    
+                
+                
+                
+                
+                    </table>
+                    <!-- <div class="mt-2 text-center" >
+                      <pagination-controls (pageChange)="pforedit = $event" ></pagination-controls>
+                  </div> -->
+                  </div>
+                    
+         
+                </div>
+                
+
+    
+    
+                 <!-- <div class="button text-center mt-4 mb-5">
+                     <button type="submit" data-dismiss="modal" style="color: white;background-color: #051230;"  >Save Changes</button>
+                     
+                 </div > -->
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana;margin-top: 10px;" data-dismiss="modal"><b>Close</b></button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+                <!-- The Modal code Ends from here -->
+    
+
+          <!-- The Modal is used for view the question on testname for edit question -->
+          <div class="modal modal" id="editquestionpencil">
+            <div class="modal-dialog modal-xl" >
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+    
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                  <div style="overflow-x:auto;overflow-y:auto;">
+                    <div>
+                      <!-- <h4 style="color: #0972b8;text-align: center;margin-bottom: 5px;margin-top: 1px;">{{messsageafterupdation}}</h4> -->
+                      <div class="row mt-4" >
+                          <div class="col-2">
+                           <h6 style="font-size: 15px;font-family: verdana"><b> Survey Name *</b></h6>
+                          </div>
+                          <div class="col-8" style="margin-bottom: 50px;">
+                           <input style="font-size: 15px;font-family: verdana;font-weight: bold;" type="text" class="form-control sm" name="testName" readonly [ngModel]="edittestName | titlecase" (ngModelChange)="edittestName=$event"  placeholder="Enter Survey Name" #edittestnameref="ngModel" required pattern="^[A-Za-z0-9&-]+(?:[ _-][A-Za-z0-9&-]+)*$" minlength="2" maxlength="256">
+                            <div *ngIf="edittestnameref.errors && (edittestnameref.invalid || edittestnameref.touched)">                
+                              <!-- <small *ngIf="edittestnameref.errors.required">Survey Name Is Required</small> -->
+                              <small *ngIf="edittestnameref.errors?.minlength">Survey Name Minimum Length Is 2 Characters</small>
+                              <small *ngIf="edittestnameref.errors?.maxlength">Survey Name Maximum Length Is 256 Characters</small>
+                              <small *ngIf="edittestnameref.errors.pattern">Survey Name May Contains Characters, Numeric Values & Few Special Characters (&, -)</small>
+                            </div>
+                          </div>
+                       <div class="col-2"></div>
+                       </div>
+                       <div class="row mt-2">
+                        <div class="col-2">
+                          <h6 style="font-size: 15px;font-family: verdana">Survey Validity *</h6>
+                        </div>
+                        <div class="col-8" >
+                          <input type="text" style="font-family: verdana;font-size: 15px;"
+                          placeholder="Select Survey Duration"
+                          class="form-control"
+                          bsDaterangepicker
+                          [bsConfig]="{ adaptivePosition: true }" id="testdate" name="senddate" [minDate]="today" [(ngModel)]="senddate" (ngModelChange)="bySelectingDateGetClientsList()" #editsenddateref="ngModel" required>
+                     </div>
+                     <div class="col-2"></div>
+                     </div>
+                       <!-- question name -->
+                       <div class="row mt-2">
+                           <div class="col-2">
+                            <h6 style="font-size: 15px;font-family: verdana;white-space: nowrap;">Enter Question *</h6>
+                           </div>
+                           <div class="col-8" >
+                            <input type="text" class="form-control sm" style="font-size: 15px;font-family: verdana" name="questionName1" [(ngModel)]="editquestionName1" placeholder="Enter Question" #editquestionName1ref="ngModel" required pattern="^[A-Za-z0-9$@$#!%*?.&]+(?:[ _-][A-Za-z0-9$@$#!%*?.&]+)*$" minlength="2">
+                            <div *ngIf="editquestionName1ref.errors && (editquestionName1ref.invalid || editquestionName1ref.touched)">                
+                              <!-- <small *ngIf="editquestionName1ref.errors.required">Question Is Required</small> -->
+                              <small *ngIf="editquestionName1ref.errors?.minlength">Question Minimum Length Is 2 Characters</small>                  
+                              <small *ngIf="editquestionName1ref.errors.pattern">Question May Contains Any Characters</small>
+                            </div><br/>
+                            
+                            <div style="margin-top: 8px;">
+
+                            <button type="button" style="color: white;background-color: #0972b8;font-size: 12px;font-family: verdana" name="Multipleforedit" class="btn" id="Multipleforedit"   value="Multiple" (click)="editquestiontypeformultiple()" height="15px" ><b>Multiple</b> </button>
+                            
+                            
+
+                                <button type="button" style="color: white;background-color: #0972b8;font-size: 12px;font-family: verdana" class="ml-3 btn" name="Fill in the Blank" id="Fill in the Blankforedit"   value="Fill in the Blank" (click)="editquestiontypefilltype()" height="15px" ><b>Fill Type</b></button>
+                                
+
+                            </div>
+           
+                           </div>
+                        <div class="col-2"></div>
+                        
+                           </div>
+           
+                  </div>
+                  
+                   <!-- options -->
+                   <div class="row mt-2" *ngIf="openchoosetheansweredit">
+                      <div class="col-2 ml-2">
+                       <h6 style="font-size: 15px;font-family: verdana">Enter Options:</h6>
+                      </div>
+                      <div class="col-2" >
+                       <input type="text" class="form-control sm" style="font-size: 15px;font-family: verdana" name="option1forQuestion1" [ngModel]="option1forQuestion1edit | titlecase" (ngModelChange)="option1forQuestion1edit=$event"  placeholder="Enter Option1" >
+                   </div>
+                   <div class="col-2" >
+                      <input type="text" class="form-control sm"style="font-size: 15px;font-family: verdana" name="option2forQuestion1" [ngModel]="option2forQuestion1edit | titlecase" (ngModelChange)="option2forQuestion1edit=$event"  placeholder="Enter Option2" >
+                  </div>
+                  <div class="col-2" >
+                      <input type="text" class="form-control sm" style="font-size: 15px;font-family: verdana" name="option3forQuestion1" [ngModel]="option3forQuestion1edit | titlecase" (ngModelChange)="option3forQuestion1edit=$event"  placeholder="Enter Option3" >
+                  </div>
+                  <div class="col-2" >
+                      <input type="text" class="form-control sm" style="font-size: 15px;font-family: verdana" name="option4forQuestion1" [ngModel]="option4forQuestion1edit | titlecase" (ngModelChange)="option4forQuestion1edit=$event"  placeholder="Enter Option4" >
+                  </div>
+      
+                   </div>
+      
+                   <!-- fill type blank -->
+                   <div class="row mt-2 ml-1" *ngIf="openfillintheblankedit">
+                      <div class="col-2">
+                       <h6 style="color: #0972b8;font-size: 15px;font-family: verdana">Fill the Blank:</h6>
+                      </div>
+                      <div class="col-8" >
+                          <h6>__________________________________________</h6>
+                   </div>
+                   <div class="col-2"></div>
+                   </div>
+      
+                   <div class="button text-center mt-4 mb-5">
+                       <button type="submit" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana"   (click)="saveeditequestion()" data-toggle="modal" data-target="#editquestionsuccessmessage" class="btn" [disabled]="edittestnameref.invalid || editsenddateref.errors?.required || editquestionName1ref.invalid " ><b>Update Question</b></button>
+                       
+                   </div >
+
+
+                    <hr>
+                    <!-- <h5 style="color: #0972b8;font-size: 20px;font-family: verdana;margin-top: 10px;margin-bottom: 10px;text-align: center;"><u><b>{{testname}}</b></u></h5> -->
+                    <table border="1" class="mb-3">
+                     <tr style="background-color: #0972b8;color: white;font-size: 15px;font-family: verdana" >
+                        <th style="font-size: 15px;font-family: verdana">SNO</th>
+                        <th style="font-size: 15px;font-family: verdana">Survey Name <input type="text" style="color: #051230 !important;" name="" [ngModel]="termforedit | titlecase" (ngModelChange)="termforedit=$event" class="ml-3" placeholder="Search" id=""></th> 
+                        <th style="font-size: 15px;font-family: verdana">Question</th>
+                        <th style="font-size: 15px;font-family: verdana">Question type</th>
+                        <th style="font-size: 15px;font-family: verdana">Option 1</th>
+                        <th style="font-size: 15px;font-family: verdana" >Option 2</th>
+                        <th style="font-size: 15px;font-family: verdana">Option 3</th>
+                        <th style="font-size: 15px;font-family: verdana">Option 4</th>
+                        <th style="font-size: 15px;font-family: verdana">Fill in the blank</th> 
+                        <th style="font-size: 15px;font-family: verdana">Edit</th>
+                      </tr>
+
+                      <tr *ngFor="let i of questionlistbasedontestname ; let hk=index ">
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 50px;vertical-align: baseline; text-align: center;">{{hk+1}}</td> 
+                        <td style="font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline">{{i.testName | titlecase}}</td> 
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 350px;vertical-align: baseline">{{i.questionName1}}</td>
+                        <td style="font-size: 15px;font-family: verdana;table-layout: fixed;width: 200px;vertical-align: baseline">{{i.questiontype | titlecase}}</td>
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option1forQuestion1 | titlecase}}</td>
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option2forQuestion1 | titlecase}}</td>
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option3forQuestion1 | titlecase}}</td>
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline" ><input [hidden]="i.questiontype==='Fill-in-the-blank'" class="mr-2" type="radio" disabled>{{i.option4forQuestion1 | titlecase}}</td>
+                        <td style="font-family: verdana;font-size: 15px;table-layout: fixed;width: 200px;vertical-align: baseline"   ><p [hidden]="i.questiontype==='Multiple Type'">________</p>   </td>
+                        <td style="text-align: left;color: #0972b8;"><i class="fa fa-pencil" (click)="editcompletedquestion(i)" style="font-size:22px"type="button" data-toggle="modal" data-target="#Editquestion"></i></td>
+                      </tr>
+                  
+                    
+                
+                
+                
+                
+                    </table>
+                    <!-- <div class="mt-2 text-center" >
+                      <pagination-controls (pageChange)="pforedit = $event" ></pagination-controls>
+                  </div> -->
+                  </div>
+                    
+         
+                </div>
+                
+
+    
+    
+                 <!-- <div class="button text-center mt-4 mb-5">
+                     <button type="submit" data-dismiss="modal" style="color: white;background-color: #051230;"  >Save Changes</button>
+                     
+                 </div > -->
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn" style="color: white;background-color: #0972b8;font-size: 17px;font-family: verdana;margin-top: 10px;" data-dismiss="modal"><b>Close</b></button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+                <!-- The Modal code Ends from here -->
+
+
+
+<!-- below modal is used for sucessfull message for editing the question -->
+<div class="modal" id="editquestionsuccessmessage" style="margin-top: 10px;">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button> 
+         <!-- <h4 class="modal-title">saikumar Heading</h4> -->
+         
+      </div>
+      <div class="modal-body">
+        <!-- <h5 style="color: #0972b8;font-size: 20px;font-family: verdana;margin-left: 100px;">{{selectdepartment}}</h5> -->
+        <h5 style="color: #0972b8;font-size: 22px;font-family: verdana;text-align: center !important;"><b>{{messsageafterupdation}}</b></h5>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn " data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+         <!-- Below model is used for selecting the department        -->
+         <!-- The Modal -->
+<div class="modal" id="selectdepartment">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+         <!-- <h4 class="modal-title">saikumar Heading</h4> -->
+         
+         <button type="button" class="close" data-dismiss="modal">&times;</button> 
+      </div>
+
+      <!-- Modal body -->
+     
+      <div class="modal-body text-center">
+        <h5 style="color: black;font-size: 20px;margin-bottom: 30px ;margin-top: 30px;font-family: verdana;text-align: center;"><b>Please Select Department For Allocate</b></h5>
+        <div class="row">
+          <div class="col-10">
+            <ng-multiselect-dropdown
+          [placeholder]="'Please Select Department For Allocate'"
+          [settings]="dropdownSettings"
+          [data]="dropdownList"
+          [(ngModel)]="selectedItems"
+          
+          (onSelect)="onItemSelect($event)"
+          
+          (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="onItemDeSelect($event)"
+          (onDeSelectAll)="onItemDeSelectAll($event)"
+        >
+        </ng-multiselect-dropdown>
+          </div>
+        <div class="col-2">
+        
+               <button (click)="assignquestiontouser()" class="btn" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana" data-toggle="modal" data-target="#assignsurveytodepartment" ><b>Allocate</b></button>
+      </div>
+      </div>
+      <h5 style="margin-top: 50px;;color: black;font-size: 20px;margin-bottom: 30px;font-family: verdana;text-align: center !important;"><b>Please Select Department For Deallocate</b></h5>
+      <div class="row" >
+
+
+        <div class="col-10">
+      <ng-multiselect-dropdown
+      [placeholder]="'Please Select Department For Deallocate'"
+      [settings]="dropdownSettings"
+      [data]="dropdownListNew"
+      [(ngModel)]="selectedItemsNew"
+      
+      (onSelect)="onItemSelectNew($event)"
+      
+      (onSelectAll)="onSelectAllNew($event)"
+      (onDeSelect)="onItemDeSelectNew($event)"
+      (onDeSelectAll)="onItemDeSelectAllNew($event)"
+    >
+    </ng-multiselect-dropdown>
+  </div>
+  <div class="col-2">
+<button (click)="dealocate()" type="button" data-toggle="modal" data-target="#assignsurveytodepartment" style="background-color: #0972b8;color: white;font-size: 17px;font-family: verdana;" class="btn" ><b>Deallocate</b></button>
+</div>
+</div>
+
+
+
+    </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn " data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- model completed -->
+        
+
+<!-- below modal is used for sucessfull assign of survey to department -->
+<div class="modal" id="assignsurveytodepartment" style="margin-top: 10px;">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button> 
+         <!-- <h4 class="modal-title">saikumar Heading</h4> -->
+         
+      </div>
+      <div class="modal-body">
+        <!-- <h5 style="color: #0972b8;font-size: 20px;font-family: verdana;margin-left: 100px;">{{selectdepartment}}</h5> -->
+        <h5 style="color: #0972b8;font-size: 22px;font-family: verdana;text-align: center !important;"><b>{{successmessageafterassiging}}</b></h5>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn " data-dismiss="modal" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana"><b>Close</b></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal for active and inactive alert message-->
+<div style="text-align: center !important;" >
+  <div class="card" id="myModalforlogin" class="modalforlogin">
+    <div class="card-header modal-contentforlogin ">
+      <button type="button" class="close" data-dismiss="modal" (click)="close()" style="color:  #0972b8;padding-bottom: 50px !important;">&times;</button>
+      <div class="mt-3"></div>
+    </div>
+
+    <div class="card-body modal-contentforlogin">
+      <p style="font-size: 22px;font-family: verdana;color: #0972b8;text-align: center !important;word-wrap: break-word;display: inline;"><b>{{activeobject.testName}}</b> Successfully <b id="state" >{{state}} </b>    </p><br> 
+        </div>
+    <div class="card-footer modal-contentforlogin">
+      <div style="text-align: right !important">
+        <button type="button" class="btn" data-dismiss="modal" (click)="close()" style="color: white;background-color:#0972b8;font-size: 17px;font-family: verdana;">Close</button>
+        <!-- <i *ngIf="Loadingoption" class="spinner-border ml-1" style="color: #0972b8;"></i> -->
+       </div>
+    </div>
+
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
